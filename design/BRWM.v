@@ -24,16 +24,16 @@ The 5 states of the FSM used in this module are described below:-
 `timescale 1ns/1ns
 
 module BRWM(
-  input clk,                      // clock
-  input rst_n,                    //external asynchronous active low reset
-  input RWM_enable,               // to enable or disable the R/W memory. Driven by controller
-  input rw,                       // rw = 0: read, rw = 1: write. Driven by controller
-  input clear,                    // an active high signal to clear all the contents of the R/W memory. Driven by controller
-  input pause,                    // an active high signal that tells the module to pause whatever operation it is doing. Driven by Grayscaler
-  input [7:0] data_in,            // input data bus. Comes from the camera
-  output [7:0] data_out,          // ouput data bus. Connected to Grayscaling module
-  output reg RWM_done             // after the completion of an operation done is set to 1. It is a status signal to drive the controller
-  );
+input           clk,                      // clock
+input           rst_n,                    //external asynchronous active low reset
+input           RWM_enable,               // to enable or disable the R/W memory. Driven by controller
+input           rw,                       // rw = 0: read, rw = 1: write. Driven by controller
+input           clear,                    // an active high signal to clear all the contents of the R/W memory. Driven by controller
+input           pause,                    // an active high signal that tells the module to pause whatever operation it is doing. Driven by Grayscaler
+input [7:0]     data_in,                  // input data bus. Comes from the camera
+output [7:0]    data_out,                 // ouput data bus. Connected to Grayscaling module
+output reg      RWM_done                  // after the completion of an operation done is set to 1. It is a status signal to drive the controller
+);
 
 parameter N = 2, M = 2;           // Height and width of the image
 reg [7:0] DATA[0:(3*N*M - 1)];    // BRWM register array
