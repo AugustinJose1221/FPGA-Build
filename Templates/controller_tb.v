@@ -10,7 +10,7 @@ slave_1 one (clk, rst_n, trigger_1, done_1, slave_out_1);
 slave_1 two (clk, rst_n, trigger_2, done_2, slave_out_2);
 controller control (clk, rst_n, done_1, done_2, start, trigger_1, trigger_2);
 
-initial 
+initial
 begin
  $dumpfile("controller_tb.vcd");
  $dumpvars(0, controller_tb);
