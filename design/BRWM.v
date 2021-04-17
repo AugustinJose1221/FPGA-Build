@@ -2,9 +2,6 @@
 Purpose of this module:
 To store the RGB pixel bytes coming from the camera. It works with the camera, controller and the grayscaling modules.
 
-I/O ports:
-This module has one clocking signal, 5 status signals and two data buses
-
 Working:
 The 5 states of the FSM used in this module are described below:-
 1)INACTIVE: Whenever the module is not in use, it is in this state. It waits for further commands from the controller.
