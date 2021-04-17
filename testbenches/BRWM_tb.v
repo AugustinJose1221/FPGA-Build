@@ -10,9 +10,9 @@ wire done;
 
 BRWM DUT (clk, on_off, rw, clear, pause, data_in, data_out, done);
 
-initial 
+initial
 begin
- $dumpfile("BRWM_tb.vcd");
+ $dumpfile("../vcd/BRWM_tb.vcd");
  $dumpvars(0, BRWM_tb);
 
  data_in = 8'h00;
@@ -33,7 +33,7 @@ begin
  $finish;
 end
 
-always 
+always
 begin
  clk = 1'b0;
  #1;

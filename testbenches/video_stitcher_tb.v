@@ -12,9 +12,9 @@ camera interface (clk, camera_enable, data_valid, camera_data);
 Grayscaler GS (clk, rst_n, GS_enable, BRWM_data, GS_data, pause, GS_done);
 BRWM MUT (clk, rst_n, RWM_enable, rw, clear, pause, camera_data, BRWM_data, BRWM_1_done);
 
-initial 
+initial
 begin
- $dumpfile("video_stitcher_tb.vcd");
+ $dumpfile("../vcd/video_stitcher_tb.vcd");
  $dumpvars(0, video_stitcher_tb);
 
  rst_n = 0;
@@ -31,7 +31,7 @@ begin
  $finish;
 end
 
-always 
+always
 begin
  clk = 1'b0;
  #1;

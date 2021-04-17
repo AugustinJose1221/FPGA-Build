@@ -3,13 +3,13 @@
 
 CC=iverilog
 FLAGS=-Wall -Winfloop
-SOURCE_FILES= ../testbench/controller_tb.v ../design/controller.v ../design/slave_1.v
-DUMPFILES=../vcd/controller_tb.vcd
+SOURCE_FILES= ../testbenches/video_stitcher_tb.v ../design/Controller.v ../design/BRWM.v ../design/camera.v ../design/Grayscaler.v
+DUMPFILES=../vcd/video_stitcher_tb.vcd
 
 create:
-	${CC} ${FLAGS} -o ../outfiles/output.bin ${SOURCE_FILES}
-	vvp ../outfiles/output.bin
+	${CC} ${FLAGS} -o ../outputfiles/output.bin ${SOURCE_FILES}
+	vvp ../outputfiles/output.bin
 simulate:
 	gtkwave ${DUMPFILES}
 clean:
-	rm -f ../outfiles/*.bin
+	rm -f ../outputfiles/*.bin
