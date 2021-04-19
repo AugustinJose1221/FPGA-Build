@@ -4,11 +4,11 @@
 module Controller(
 input clk,                      //clock
 input rst_n,                    //external asynchronous active low reset
-input BRWM_1_done,              //status signal from the BRWM module
+input RWM_1_done,               //status signal from the RWM module
 input GS_done,                  //status signal from the Grayscaler module
 input start,                    //external start command from user
-output reg RWM_enable,          //status signal to the BRWM module
-output reg rw,                  //status signal to the BRWM module
+output reg RWM_enable,          //status signal to the RWM module
+output reg rw,                  //status signal to the RWM module
 output camera_enable,           //status signal to the camera
 output GS_enable                //status signal to the Grayscaler module
 );
@@ -25,7 +25,7 @@ begin
 end
 
 //Combinatorial logic
-always @(start, GS_done, BRWM_1_done)
+always @(start, GS_done, RWM_1_done)
 begin
  case (CS)
  IDLE: begin
@@ -38,14 +38,14 @@ begin
  CAMERA_READ: begin
                RWM_enable = 1'b1;
                rw = 1'b1;
-               if (BRWM_1_done == 1'b1)
+               if (RWM_1_done == 1'b1)
                 NS = GRAY_WRITE;
                else NS = CAMERA_READ;
               end
  GRAY_WRITE: begin
                RWM_enable = 1'b1;
                rw = 1'b0;
-               if (GS_done == 1'b1)
+               if (GS_done == 1'b1 || RWM_1_done == 1'b1)
                 NS = IDLE;
                else NS = GRAY_WRITE;
              end
@@ -53,7 +53,7 @@ begin
  endcase
 end
 
-assign camera_enable = (CS == CAMERA_READ) ? 1'b1 : 1'b0; 
-assign GS_enable = (CS == GRAY_WRITE) ? 1'b1 : 1'b0; 
+assign camera_enable = (CS == CAMERA_READ) ? 1'b1 : 1'b0;
+assign GS_enable = (CS == GRAY_WRITE) ? 1'b1 : 1'b0;
 
 endmodule

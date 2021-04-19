@@ -23,6 +23,7 @@ module Grayscaler(
  input          clk,                     //clock
  input          rst_n,                   //external asynchronous active low reset
  input          GS_enable,               //to enable or disable this module. Driven by controller
+ input          RWM_valid,               // an active high signal indicating the presence of desired data at the output data bus
  input [7:0]    Din,                     //input data bus. Connected to BRWM module
  output [7:0]   Dout,                    //output data bus.
  output         pause,                   //an active high signal that tells the BRWM module to pause whatever operation it is doing.
@@ -43,7 +44,7 @@ if(~rst_n)
  else
  begin
   CS <= NS;
-  cache <= Din;
+  //cache <= Din;
  end
 end
 
@@ -57,7 +58,7 @@ begin
         green = 8'h00;
         blue = 8'h00;
         GS_done = 1'b0;
-        if(GS_enable == 1'b1)
+        if(GS_enable && RWM_valid)
          NS = FILL;
         else NS = IDLE;
        end
@@ -65,43 +66,33 @@ begin
         GS_done = 1'b0;
         if(c == 0)
         begin
-         red = cache;
-         c = c + 1;
+         red = Din;//cache;
          NS = FILL;
         end
         else if(c == 1)
         begin
-         green = cache;
-         c = c + 1;
+         green = Din;//cache;
          NS = FILL;
         end
         else
         begin
-         blue = cache;
-         c = c + 1;
+         blue = Din;//''cache;
          NS = CALCULATE;
+         d = d + 1;
         end
+        c = c + 1;
        end
  CALCULATE: begin
              c = 0;
              result = (red>>2) + (red>>5) + (green>>1) + (green>>4) + (blue>>4) + (blue>>5);
-             d = d + 1;
-             if (d == N*M)
-             begin
-              NS = IDLE;
-              GS_done = 1'b1;
-             end
-             else
-             begin
-              NS = FILL;
-              GS_done = 1'b0;
-             end
+             NS = (d == N*M) ? IDLE : FILL;
+             GS_done = (d == N*M) ? 1'b1 : 1'b0;
             end
  default: NS = IDLE;
  endcase
 end
 
-assign pause = ((CS == FILL) && (c == 2)) ? 1'b1 : 1'b0;
+assign pause = ((CS == FILL) && (c == 3) && (d != N*M)) ? 1'b1 : 1'b0;
 assign Dout = (CS == CALCULATE) ? result : 8'hzz;
 
 endmodule

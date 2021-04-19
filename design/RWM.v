@@ -20,15 +20,16 @@ The 5 states of the FSM used in this module are described below:-
 
 `timescale 1ns/1ns
 
-module BRWM(
+module RWM(
 input           clk,                      // clock
-input           rst_n,                    //external asynchronous active low reset
+input           rst_n,                    // external asynchronous active low reset
 input           RWM_enable,               // to enable or disable the R/W memory. Driven by controller
 input           rw,                       // rw = 0: read, rw = 1: write. Driven by controller
 input           clear,                    // an active high signal to clear all the contents of the R/W memory. Driven by controller
 input           pause,                    // an active high signal that tells the module to pause whatever operation it is doing. Driven by Grayscaler
 input [7:0]     data_in,                  // input data bus. Comes from the camera
 output [7:0]    data_out,                 // ouput data bus. Connected to Grayscaling module
+output          RWM_valid,                // an active high signal indicating the presence of desired data at the output data bus
 output reg      RWM_done                  // after the completion of an operation done is set to 1. It is a status signal to drive the controller
 );
 
@@ -52,12 +53,12 @@ end
 
 always @(posedge clk)
 begin
-  cache_in <= data_in;
+//  cache_in <= data_in;
  case (CS)
  INACTIVE: i <= 0;                                           // Keep the memory address pointer at 0
  WRITE: begin
-         DATA[i] <= cache_in;                                // Writing into BRWM
-         i <= (i == 3*N*M - 1) ? 0 : i + 1;
+         DATA[i] <= data_in;//cache_in;                                // Writing into BRWM
+         i <= (i == 3*N*M) ? 0 : i + 1;
         end
  READ: begin
         cache_out <= DATA[i];                               // Reading from BRWM
@@ -84,8 +85,8 @@ begin
              else NS = (rw == 1) ? WRITE : READ;
             end
   WRITE: begin
-          NS = (i == 3*N*M - 1) ? INACTIVE : WRITE;
-          RWM_done = (i == 3*N*M - 1) ? 1'b1 : 1'b0;
+          NS = (i == 3*N*M) ? INACTIVE : WRITE;
+          RWM_done = (i == 3*N*M) ? 1'b1 : 1'b0;
          end
   READ: begin
          if (pause)
@@ -108,5 +109,6 @@ begin
 end
 
 assign data_out = (CS == READ) ? cache_out : 8'hzz;
+assign RWM_valid = (CS == READ) ? 1'b1 : 1'b0;
 
 endmodule
