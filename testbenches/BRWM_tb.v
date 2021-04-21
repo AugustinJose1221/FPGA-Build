@@ -3,10 +3,10 @@
 
 module BRWM_tb();
 
-reg clk, on_off, clear, rw, pause;
-reg [7:0] data_in;
-wire [7:0] data_out;
-wire done;
+reg         clk, on_off, clear, rw, pause;
+reg [7:0]   data_in;
+wire [7:0]  data_out;
+wire        done;
 
 BRWM DUT (clk, on_off, rw, clear, pause, data_in, data_out, done);
 

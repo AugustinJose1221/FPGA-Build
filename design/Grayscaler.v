@@ -51,43 +51,46 @@ end
 always @(*)
 begin
  case (CS)
- IDLE: begin
-        d = 0;
-        c = 0;
-        red = 8'h00;
-        green = 8'h00;
-        blue = 8'h00;
-        GS_done = 1'b0;
-        if(GS_enable && RWM_valid)
-         NS = FILL;
-        else NS = IDLE;
-       end
- FILL: begin
-        GS_done = 1'b0;
-        if(c == 0)
-        begin
-         red = Din;//cache;
-         NS = FILL;
-        end
-        else if(c == 1)
-        begin
-         green = Din;//cache;
-         NS = FILL;
-        end
-        else
-        begin
-         blue = Din;//''cache;
-         NS = CALCULATE;
-         d = d + 1;
-        end
-        c = c + 1;
-       end
- CALCULATE: begin
-             c = 0;
-             result = (red>>2) + (red>>5) + (green>>1) + (green>>4) + (blue>>4) + (blue>>5);
-             NS = (d == N*M) ? IDLE : FILL;
-             GS_done = (d == N*M) ? 1'b1 : 1'b0;
-            end
+ IDLE:
+ begin
+  d = 0;
+  c = 0;
+  red = 8'h00;
+  green = 8'h00;
+  blue = 8'h00;
+  GS_done = 1'b0;
+  if(GS_enable && RWM_valid)
+   NS = FILL;
+  else NS = IDLE;
+ end
+ FILL:
+ begin
+  GS_done = 1'b0;
+  if(c == 0)
+  begin
+   red = Din;//cache;
+   NS = FILL;
+  end
+  else if(c == 1)
+  begin
+   green = Din;//cache;
+   NS = FILL;
+  end
+  else
+  begin
+   blue = Din;//''cache;
+   NS = CALCULATE;
+   d = d + 1;
+  end
+  c = c + 1;
+ end
+ CALCULATE:
+ begin
+  c = 0;
+  result = (red>>2) + (red>>5) + (green>>1) + (green>>4) + (blue>>4) + (blue>>5);
+  NS = (d == N*M) ? IDLE : FILL;
+  GS_done = (d == N*M) ? 1'b1 : 1'b0;
+ end
  default: NS = IDLE;
  endcase
 end

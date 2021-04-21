@@ -56,19 +56,22 @@ begin
 //  cache_in <= data_in;
  case (CS)
  INACTIVE: i <= 0;                                           // Keep the memory address pointer at 0
- WRITE: begin
-         DATA[i] <= data_in;//cache_in;                                // Writing into BRWM
-         i <= (i == 3*N*M) ? 0 : i + 1;
-        end
- READ: begin
-        cache_out <= DATA[i];                               // Reading from BRWM
-        i <= (i == 3*N*M) ? 0 : i + 1;
-       end
+ WRITE:
+ begin
+  DATA[i] <= data_in;//cache_in;                                // Writing into BRWM
+  i <= (i == 3*N*M) ? 0 : i + 1;
+ end
+ READ:
+ begin
+  cache_out <= DATA[i];                               // Reading from BRWM
+  i <= (i == 3*N*M) ? 0 : i + 1;
+ end
  WAIT: i <= i;                                              // Preserve the address location
- CLEANUP: begin
-           DATA[i] <= 8'h00;                                 // Clearing BRWM registers
-           i <= (i == 3*N*M - 1) ? 0 : i + 1;
-          end
+ CLEANUP:
+ begin
+  DATA[i] <= 8'h00;                                 // Clearing BRWM registers
+  i <= (i == 3*N*M - 1) ? 0 : i + 1;
+ end
  endcase
 end
 
@@ -76,34 +79,39 @@ end
 always @(RWM_enable, rw, i, pause)
 begin
   case (CS)
-  INACTIVE: begin
-             RWM_done = 1'b0;
-             if (RWM_enable == 1'b0)
-              NS = INACTIVE;
-             else if (clear == 1'b1)
-              NS = CLEANUP;
-             else NS = (rw == 1) ? WRITE : READ;
-            end
-  WRITE: begin
-          NS = (i == 3*N*M) ? INACTIVE : WRITE;
-          RWM_done = (i == 3*N*M) ? 1'b1 : 1'b0;
-         end
-  READ: begin
-         if (pause)
-          NS = WAIT;
-         else NS = (i == 3*N*M) ? INACTIVE : READ;
-         RWM_done = (i == 3*N*M) ? 1'b1 : 1'b0;
-        end
-  WAIT: begin
-         RWM_done = 1'b0;
-         if (pause == 1'b0)
-          NS = READ;
-         else NS = WAIT;
-        end
-  CLEANUP: begin
-            NS = (i == 3*N*M - 1) ? INACTIVE : CLEANUP;
-            RWM_done = (i == 3*N*M - 1) ? 1'b1 : 1'b0;
-           end
+  INACTIVE:
+  begin
+   RWM_done = 1'b0;
+   if (RWM_enable == 1'b0)
+    NS = INACTIVE;
+   else if (clear == 1'b1)
+    NS = CLEANUP;
+   else NS = (rw == 1) ? WRITE : READ;
+  end
+  WRITE:
+  begin
+   NS = (i == 3*N*M) ? INACTIVE : WRITE;
+   RWM_done = (i == 3*N*M) ? 1'b1 : 1'b0;
+  end
+  READ:
+  begin
+   if (pause)
+    NS = WAIT;
+   else NS = (i == 3*N*M) ? INACTIVE : READ;
+   RWM_done = (i == 3*N*M) ? 1'b1 : 1'b0;
+  end
+  WAIT:
+  begin
+   RWM_done = 1'b0;
+   if (pause == 1'b0)
+    NS = READ;
+   else NS = WAIT;
+  end
+  CLEANUP:
+  begin
+   NS = (i == 3*N*M - 1) ? INACTIVE : CLEANUP;
+   RWM_done = (i == 3*N*M - 1) ? 1'b1 : 1'b0;
+  end
   default: NS = INACTIVE;
   endcase
 end

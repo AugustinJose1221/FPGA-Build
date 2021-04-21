@@ -3,9 +3,9 @@
 
 module video_stitcher_tb;
 
-reg clk, rst_n, start, clear;
-wire camera_enable, data_valid, RWM_enable, rw, RWM_1_done, GS_done, GS_enable, pause, RWM_valid;
-wire [7:0] RWM_data, camera_data, GS_data;
+reg             clk, rst_n, start, clear;
+wire            camera_enable, data_valid, RWM_enable, rw, RWM_1_done, GS_done, GS_enable, pause, RWM_valid;
+wire [7:0]      RWM_data, camera_data, GS_data;
 
 
 Controller control (clk, rst_n, RWM_1_done, GS_done, start, RWM_enable, rw, camera_enable, GS_enable);
