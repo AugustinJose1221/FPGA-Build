@@ -1,6 +1,6 @@
 /*
 Purpose of this module:
-To store the RGB pixel bytes coming from the camera. It works with the camera, controller and the grayscaling modules.
+To store the RGB pixel bytes coming from the camera. It works with the camera, controller and the grayscaling module.
 
 Working:
 The 5 states of the FSM used in this module are described below:-
@@ -20,7 +20,7 @@ The 5 states of the FSM used in this module are described below:-
 
 `timescale 1ns/1ns
 
-module RWM(
+module RWM_1(
 input           clk,                      // clock
 input           rst_n,                    // external asynchronous active low reset
 input           RWM_enable,               // to enable or disable the R/W memory. Driven by controller
@@ -34,14 +34,15 @@ output reg      RWM_done                  // after the completion of an operatio
 );
 
 parameter N = 2, M = 2;           // Height and width of the image
-reg [7:0] DATA[0:(3*N*M - 1)];    // BRWM register array
+reg [7:0] DATA[0:(3*N*M - 1)];    // RWM register array
 
-reg [2:0] CS, NS;                 // BRWM state variables
-//BRWM states
-parameter INACTIVE = 3'b000, READ = 3'b001, WRITE = 3'b010, WAIT = 3'b011, CLEANUP = 3'b100; //BRWM states
+reg [2:0] CS, NS;                 // RWM state variables
 
-integer i;                        // Loop variable for addressing the BRWM register array
-reg [7:0] cache_out, cache_in;
+//RWM states
+parameter INACTIVE = 3'b000, READ = 3'b001, WRITE = 3'b010, WAIT = 3'b011, CLEANUP = 3'b100;
+
+integer i;                        // Loop variable for addressing the RWM register array
+reg [7:0] cache_out;
 
 // Sequential Logic
 always @(posedge clk or negedge rst_n)
@@ -53,24 +54,23 @@ end
 
 always @(posedge clk)
 begin
-//  cache_in <= data_in;
  case (CS)
  INACTIVE: i <= 0;                                           // Keep the memory address pointer at 0
  WRITE:
  begin
-  DATA[i] <= data_in;//cache_in;                                // Writing into BRWM
-  i <= (i == 3*N*M) ? 0 : i + 1;
+  DATA[i] <= data_in;                                       // Writing into RWM
+  i <= (i == 3*N*M - 1) ? 0 : i + 1;
  end
  READ:
  begin
-  cache_out <= DATA[i];                               // Reading from BRWM
+  cache_out <= DATA[i];                               // Reading from RWM
   i <= (i == 3*N*M) ? 0 : i + 1;
  end
  WAIT: i <= i;                                              // Preserve the address location
  CLEANUP:
  begin
-  DATA[i] <= 8'h00;                                 // Clearing BRWM registers
-  i <= (i == 3*N*M - 1) ? 0 : i + 1;
+  DATA[i] <= 8'h00;                                 // Clearing RWM registers
+  i <= (i == 3*N*M) ? 0 : i + 1;
  end
  endcase
 end
@@ -90,8 +90,8 @@ begin
   end
   WRITE:
   begin
-   NS = (i == 3*N*M) ? INACTIVE : WRITE;
-   RWM_done = (i == 3*N*M) ? 1'b1 : 1'b0;
+   NS = (i == 3*N*M - 1) ? INACTIVE : WRITE;
+   RWM_done = (i == 3*N*M - 1) ? 1'b1 : 1'b0;
   end
   READ:
   begin

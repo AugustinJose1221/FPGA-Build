@@ -3,7 +3,7 @@
 
 CC=iverilog
 FLAGS=-Wall -Winfloop
-SOURCE_FILES= ../testbenches/video_stitcher_tb.v ../design/Controller.v ../design/RWM.v ../design/camera.v ../design/Grayscaler.v
+SOURCE_FILES= ../testbenches/video_stitcher_tb.v ../design/Controller.v ../design/RWM_1.v ../design/RWM_2.v ../design/camera.v ../design/Grayscaler.v
 DUMPFILES=../vcd/video_stitcher_tb.vcd
 
 create:

@@ -3,19 +3,41 @@
 
 module video_stitcher_tb;
 
-reg             clk, rst_n, start, clear;
-wire            camera_enable, data_valid, RWM_enable, rw, RWM_1_done, GS_done, GS_enable, pause, RWM_valid;
-wire [7:0]      RWM_data, camera_data, GS_data;
+reg  clk, rst_n, start, clear;
+
+wire camera_enable;
+wire RWM_1_enable;
+wire RWM_2_enable;
+wire GS_enable;
+
+wire rw_1;
+wire rw_2;
+
+wire data_valid;
+wire RWM_1_valid;
+wire RWM_2_valid;
+wire GS_valid;
+
+wire RWM_1_done;
+wire RWM_2_done;
+wire GS_done;
+wire pause;
+
+wire [7:0] camera_data;
+wire [7:0] RWM_1_data;
+wire [7:0] RWM_2_data;
+wire [7:0] GS_data;
 
 
-Controller control (clk, rst_n, RWM_1_done, GS_done, start, RWM_enable, rw, camera_enable, GS_enable);
+Controller control (clk, rst_n, RWM_1_done, RWM_2_done, GS_done, start, RWM_1_enable, rw_1, RWM_2_enable, rw_2, camera_enable, GS_enable);
 
 camera interface (clk, camera_enable, data_valid, camera_data);
 
-Grayscaler GS (clk, rst_n, GS_enable, RWM_valid, RWM_data, GS_data, pause, GS_done);
+Grayscaler GS (clk, rst_n, GS_enable, RWM_1_valid, RWM_1_data, GS_data, GS_valid, pause, GS_done);
 
-RWM MUT (clk, rst_n, RWM_enable, rw, clear, pause, camera_data, RWM_data, RWM_valid, RWM_1_done);
+RWM_1 Memory_1 (clk, rst_n, RWM_1_enable, rw_1, clear, pause, camera_data, RWM_1_data, RWM_1_valid, RWM_1_done);
 
+RWM_2 Memory_2 (clk, rst_n, RWM_2_enable, rw_2, clear, GS_valid, GS_data, RWM_2_data, RWM_2_valid, RWM_2_done);
 
 initial
 begin

@@ -4,17 +4,20 @@
 module Controller(
 input             clk,                      //clock
 input             rst_n,                    //external asynchronous active low reset
-input             RWM_1_done,               //status signal from the RWM module
+input             RWM_1_done,               //status signal from the RWM_1 module
+input             RWM_2_done,               //status signal from the RWM_2 module
 input             GS_done,                  //status signal from the Grayscaler module
 input             start,                    //external start command from user
-output reg        RWM_enable,          //status signal to the RWM module
-output reg        rw,                  //status signal to the RWM module
-output            camera_enable,           //status signal to the camera
-output            GS_enable                //status signal to the Grayscaler module
+output            RWM_1_enable,             //status signal to the RWM_1 module
+output            rw_1,                     //status signal to the RWM_1 module
+output            RWM_2_enable,             //status signal to the RWM_2 module
+output            rw_2,                     //status signal to the RWM_2 module
+output            camera_enable,            //status signal to the camera
+output            GS_enable                 //status signal to the Grayscaler module
 );
 
-parameter [1:0] IDLE = 2'b00, CAMERA_READ = 2'b01, GRAY_WRITE = 2'b10;
-reg [1:0] CS, NS;
+parameter [2:0] IDLE = 3'b000, CAMERA_READ = 3'b001, GRAYSCALE = 3'b010, FILTER = 3'b011;
+reg [2:0] CS, NS;
 
 //Sequential logic
 always @(posedge clk or negedge rst_n)
@@ -25,38 +28,42 @@ begin
 end
 
 //Combinatorial logic
-always @(start, GS_done, RWM_1_done)
+always @(start, GS_done, RWM_1_done, RWM_2_done)
 begin
  case (CS)
  IDLE:
  begin
-  RWM_enable = 1'b0;
-  rw = 1'bz;
   if (start == 1'b1)
    NS = CAMERA_READ;
   else NS = IDLE;
  end
  CAMERA_READ:
  begin
-  RWM_enable = 1'b1;
-  rw = 1'b1;
   if (RWM_1_done == 1'b1)
-   NS = GRAY_WRITE;
+   NS = GRAYSCALE;
   else NS = CAMERA_READ;
  end
- GRAY_WRITE:
+ GRAYSCALE:
  begin
-  RWM_enable = 1'b1;
-  rw = 1'b0;
-  if (GS_done == 1'b1 || RWM_1_done == 1'b1)
-   NS = IDLE;
-  else NS = GRAY_WRITE;
+  if (RWM_1_done == 1'b1)
+   NS = FILTER;
+  else NS = GRAYSCALE;
+ end
+ FILTER:
+ begin
+  if ((GS_done == 1'b1) || RWM_2_done == 1'b0)
+   NS = FILTER;
+  else NS = IDLE;
  end
  default: NS = IDLE;
  endcase
 end
 
 assign camera_enable = (CS == CAMERA_READ) ? 1'b1 : 1'b0;
-assign GS_enable = (CS == GRAY_WRITE) ? 1'b1 : 1'b0;
+assign RWM_1_enable = ((CS == CAMERA_READ) || (CS == GRAYSCALE)) ? 1'b1 : 1'b0;
+assign rw_1 = (CS == CAMERA_READ) ? 1'b1 :((CS == GRAYSCALE) ? 1'b0 : 1'bz);
+assign RWM_2_enable = ((CS == GRAYSCALE) || (CS == FILTER)) ? 1'b1 : 1'b0;
+assign rw_2 = (CS == GRAYSCALE) ? 1'b1 : ((CS == FILTER) ? 1'b0 : 1'bz);
+assign GS_enable = (CS == GRAYSCALE) ? 1'b1 : 1'b0;
 
 endmodule
