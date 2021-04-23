@@ -50,16 +50,17 @@ end
 
 always @(*)
 begin
+ //cache = Din;
  case (CS)
  IDLE:
  begin
   d = 0;
-  c = 1;
+  c = 0;
   red = 8'h00;
   green = 8'h00;
   blue = 8'h00;
   GS_done = 1'b0;
-  if(GS_enable && RWM_valid)
+  if(GS_enable)// && RWM_valid)
    NS = FILL;
   else NS = IDLE;
  end
