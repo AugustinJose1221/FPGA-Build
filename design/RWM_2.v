@@ -41,7 +41,7 @@ reg [2:0] CS, NS;                 // RWM state variables
 //RWM states
 parameter INACTIVE = 3'b000, READ = 3'b001, WRITE = 3'b010, WAIT = 3'b011, CLEANUP = 3'b100;
 
-integer i;                        // Loop variable for addressing the RWM register array
+integer i, j;                        // Loop variable for addressing the RWM register array
 reg [7:0] cache_out;
 
 // Sequential Logic
@@ -69,8 +69,14 @@ begin
  WAIT: i <= i;                                              // Preserve the address location
  CLEANUP:
  begin
+  /*
   DATA[i] <= 8'h00;                                 // Clearing RWM registers
   i <= (i == N*M) ? 0 : i + 1;
+  */
+  for(j = 0; j < N*M; j = j+1)
+  begin
+   DATA[j] <= 8'h00;
+  end
  end
  endcase
 end
@@ -111,8 +117,8 @@ begin
   end
   CLEANUP:
   begin
-   NS = (i == N*M - 1) ? INACTIVE : CLEANUP;
-   RWM_done = (i == N*M - 1) ? 1'b1 : 1'b0;
+   NS = (j == N*M) ? INACTIVE : CLEANUP;
+   RWM_done = (j == N*M) ? 1'b1 : 1'b0;
   end
   default: NS = INACTIVE;
   endcase
