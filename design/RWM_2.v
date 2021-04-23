@@ -1,4 +1,5 @@
 /*
+MODULE OVERVIEW:
 Purpose of this module:
 To store the RGB pixel bytes coming from the camera. It works with the controller and the grayscaling module.
 
@@ -10,7 +11,7 @@ The 5 states of the FSM used in this module are described below:-
 
 3)READ: Writes the contents of the internal data bus to the output data bus. After completion, it goes back to INACTIVE.
 
-4)WAIT: The grayscaling module can interrupt this module during the READ operation by asserting the 'GS_valid' signal.
+4)WAIT: The grayscaling module can interrupt this module during the WRITE operation by asserting the 'GS_valid' signal.
         If this happens, the module goes to this state, where it preserves the location address.
         It then waits for the 'GS_valid' signal to be disabled so that it can go back to READ state.
 
@@ -34,15 +35,14 @@ output reg      RWM_done                  // after the completion of an operatio
 );
 
 parameter N = 2, M = 2;           // Height and width of the image
-reg [7:0] DATA[0:(N*M - 1)];    // RWM register array
+reg [7:0] DATA[0:(N*M - 1)];      // RWM register array
 
 reg [2:0] CS, NS;                 // RWM state variables
 
 //RWM states
 parameter INACTIVE = 3'b000, READ = 3'b001, WRITE = 3'b010, WAIT = 3'b011, CLEANUP = 3'b100;
 
-integer i, j;                        // Loop variable for addressing the RWM register array
-reg [7:0] cache_out;
+integer i, j;                     // Loop variable for addressing the RWM register array
 
 // Sequential Logic
 always @(posedge clk or negedge rst_n)
@@ -55,22 +55,21 @@ end
 always @(posedge clk)
 begin
  case (CS)
- INACTIVE: i <= 0;                                           // Keep the memory address pointer at 0
+ INACTIVE: i <= 0;                                     // Keep the memory address pointer at 0
  WRITE:
  begin
-  DATA[i] <= data_in;                                       // Writing into RWM
+  DATA[i] <= data_in;                                  // Writing into RWM
   i <= (i == N*M - 1) ? 0 : i + 1;
  end
  READ:
- begin
-  cache_out <= DATA[i];                               // Reading from RWM
+ begin                                                // Reading from RWM
   i <= (i == N*M-1) ? 0 : i + 1;
  end
- WAIT: i <= i;                                              // Preserve the address location
+ WAIT: i <= i;                                        // Preserve the address location
  CLEANUP:
  begin
   /*
-  DATA[i] <= 8'h00;                                 // Clearing RWM registers
+  DATA[i] <= 8'h00;                                  // Clearing RWM registers
   i <= (i == N*M) ? 0 : i + 1;
   */
   for(j = 0; j < N*M; j = j+1)
