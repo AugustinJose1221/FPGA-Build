@@ -64,7 +64,7 @@ begin
  READ:
  begin
   cache_out <= DATA[i];                               // Reading from RWM
-  i <= (i == N*M) ? 0 : i + 1;
+  i <= (i == N*M-1) ? 0 : i + 1;
  end
  WAIT: i <= i;                                              // Preserve the address location
  CLEANUP:
@@ -92,8 +92,8 @@ begin
   end
   READ:
   begin
-   NS = (i == N*M) ? INACTIVE : READ;
-   RWM_done = (i == N*M) ? 1'b1 : 1'b0;
+   NS = (i == N*M-1) ? INACTIVE : READ;
+   RWM_done = (i == N*M-1) ? 1'b1 : 1'b0;
   end
   WRITE:
   begin
@@ -118,7 +118,7 @@ begin
   endcase
 end
 
-assign data_out = (CS == READ) ? cache_out : 8'hzz;
+assign data_out = (CS == READ) ? DATA[i] : 8'hzz;
 assign RWM_valid = (CS == READ) ? 1'b1 : 1'b0;
 
 endmodule

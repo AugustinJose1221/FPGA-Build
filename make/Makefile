@@ -7,9 +7,9 @@ SOURCE_FILES= ../testbenches/video_stitcher_tb.v ../design/Controller.v ../desig
 DUMPFILES=../vcd/video_stitcher_tb.vcd
 
 create:
-	${CC} ${FLAGS} -o ../outputfiles/output.bin ${SOURCE_FILES}
-	vvp ../outputfiles/output.bin
+	${CC} ${FLAGS} -o ../outfiles/output.bin ${SOURCE_FILES}
+	vvp ../outfiles/output.bin
 simulate:
 	gtkwave ${DUMPFILES}
 clean:
-	rm -f ../outputfiles/*.bin
+	rm -f ../outfiles/*.bin
