@@ -54,7 +54,7 @@ begin
  IDLE:
  begin
   d = 0;
-  c = 0;
+  c = 1;
   red = 8'h00;
   green = 8'h00;
   blue = 8'h00;
@@ -66,7 +66,7 @@ begin
  FILL:
  begin
   GS_done = 1'b0;
-  c = (c != 3) ? c + 1 : 0;
+  c = (c != 3) ? c + 1 : 1;
   red = (c == 1) ? Din : red;
   green = (c == 2) ? Din : green;
   blue = (c == 3) ? Din : blue;
