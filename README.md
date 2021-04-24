@@ -12,5 +12,5 @@ Folder description:
 1. The main working verilog modules are inside the 'design' folder.
 2. Their corresponding testbenches are kept inside the 'testbenches' folder.
 3. The output simulation waveforms are dumped into .vcd files. These are present in the 'vcd' folder.
-4. The terminal commands needed to compile and execute these files are written in a makefile. This makefile is inside the folder named 'make'.
+4. The terminal commands needed to compile and execute these files are written in a makefile. This makefile is inside the folder named 'make'. To use this makefile, open the terminal and go to the location where the makefile is saved. Then type "make create" to compile .v files within the makefile. Then type "make simulate" to open the dumpfile in a simulator like GTKWave. If you wish to delete the .bin file created during compilation, then type "make clean".
 5. The 'templates' folder contains a simple design structure followed while designing the working verilog modules.
