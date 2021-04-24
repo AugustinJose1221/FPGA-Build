@@ -1,8 +1,8 @@
 # FPGA-Build
 This repository contains the design of a video stitching algorithm in a FPGA using verilog HDL. The SIFT algorithm is used to compare and stitch the image frames coming from the left and right cameras. 
 The digital data coming from each camera goes through the following processes:-
-1)Grayscaling
-2)Gaussian blur
+1.Grayscaling
+2.Gaussian blur
 
 
 
