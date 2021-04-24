@@ -7,5 +7,5 @@ To execute a testbench
   + Run gtkwave vcd/vcd_filename.vcd
 
 Note:
-  + Add all the design files used in the testbench while compiling the testbenchusing iverilog
+  + Add all the design files used in the testbench while compiling the testbench using iverilog
   + The name of the vcd file (vcd_filename.vcd) generated is given in the testbench file
