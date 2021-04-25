@@ -28,6 +28,8 @@ wire [7:0] RWM_1_data;
 wire [7:0] RWM_2_data;
 wire [7:0] GS_data;
 
+wire fill_now;
+wire [15:0] Dout;
 
 Controller control (clk, rst_n, RWM_1_done, RWM_2_done, GS_done, start, RWM_1_enable, rw_1, RWM_2_enable, rw_2, camera_enable, GS_enable);
 
@@ -39,6 +41,8 @@ RWM_1 Memory_1 (clk, rst_n, RWM_1_enable, rw_1, clear, pause, camera_data, RWM_1
 
 RWM_2 Memory_2 (clk, rst_n, RWM_2_enable, rw_2, clear, GS_valid, GS_data, RWM_2_data, RWM_2_valid, RWM_2_done);
 
+filter5x5 FILTER(RWM_2_data, RWM_2_valid, rst_n, clk, fill_now, Dout);
+
 initial
 begin
  $dumpfile("../vcd/video_stitcher_tb.vcd");
@@ -47,22 +51,22 @@ begin
  rst_n = 0;
  clear = 0;
  start = 0;
- #150;
+ #2;
  rst_n = 1;
  start = 1;
  #2;
  start = 0;
  #130;
  #150;
- #150
+ #1500;
  $finish;
 end
 
 always
 begin
- clk = 1'b0;
- #1;
  clk = 1'b1;
+ #1;
+ clk = 1'b0;
  #1;
 end
 
