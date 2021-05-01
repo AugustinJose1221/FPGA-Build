@@ -5,7 +5,7 @@ output reg          data_valid,
 output reg [7:0]    data_out);
 
 
-parameter N = 5, M = 5;
+parameter N = 64, M = 64;
 
 reg [7:0] mem[3*N*M:0];
 integer ptr;
