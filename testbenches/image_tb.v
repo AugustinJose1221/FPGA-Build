@@ -10,7 +10,7 @@ image UUT(clk, camera_en, data_valid, data_out);
 initial
 begin
  clk = 0;
- $dumpfile("../vcd/image.vcd");
+ $dumpfile("vcd/image.vcd");
  $dumpvars(0, image_tb);
  camera_en = 0;
  #2;
