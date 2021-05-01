@@ -4,7 +4,11 @@ input           data_valid,
 input [7:0]     data_out);
 
 integer file_id;
-
+initial
+begin
+ file_id = $fopen("res/out.txt", "w");
+ $fclose(file_id);
+end
 always @(posedge clk)
 begin
  if (data_valid)

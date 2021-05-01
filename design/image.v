@@ -32,7 +32,6 @@ begin
  end
  if (ptr == ((N*M*3) - 1))
  begin
-  data_valid <= 0;
   ptr <= 0;
  end
 end
