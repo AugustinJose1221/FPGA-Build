@@ -29,7 +29,7 @@ reg [1:0] PS, NS;
 integer count, i, j, k;
 
 parameter IDLE = 2'b00, STORE = 2'b01, FIX = 2'b10, CONVOLUTE = 2'b11;
-parameter N = 5, M = 5;                                                       //resolution of the image
+parameter N = 64, M = 64;                                                       //resolution of the image
 
 
 //sequential logic
@@ -45,7 +45,7 @@ begin
  if(data_valid)//PS == STORE)
  begin
   storage[i] <= Din;    //to store the incoming pixel byte into the next position in the storage array
-  i <= (i == 24) ? 0 : i + 1;
+  i <= (i == N*M-1) ? 0 : i + 1;
  end
  else i <= 0;
 end
@@ -69,7 +69,7 @@ begin
         else NS = IDLE;
        end
  STORE: begin
-         NS = (i == 24) ? FIX : STORE;
+         NS = (i == N*M-1) ? FIX : STORE;
         end
  FIX: begin
        //to place the the required bytes in the kernal for convolution
@@ -107,14 +107,15 @@ begin
       end
  CONVOLUTE: begin
              // sigma = 3
-             result0 = (0.0113 * image_kernal[0]) + (0.0134 * image_kernal[1]) + (0.0142 * image_kernal[2]) + (0.0134 * image_kernal[3]) + (0.0113 * image_kernal[4]) + (0.0134 * image_kernal[5]) + (0.0158 * image_kernal[6]) + (0.0167 * image_kernal[7]) + (0.0158 * image_kernal[8]) + (0.0134 * image_kernal[9]) + (0.0142 * image_kernal[10]) + (0.0167 * image_kernal[11]) + (0.0177 * image_kernal[12]) + (0.0167 * image_kernal[13]) + (0.0142 * image_kernal[14]) + (0.0134 * image_kernal[15]) + (0.0158 * image_kernal[16]) + (0.0167 * image_kernal[17]) + (0.0158 * image_kernal[18]) + (0.0134 * image_kernal[19]) + (0.0113 * image_kernal[20]) + (0.0134 * image_kernal[21]) + (0.0142 * image_kernal[22]) + (0.0134 * image_kernal[23]) + (0.0113 * image_kernal[24]);
+             result0 = (0.011339 * image_kernal[0]) + (0.013395 * image_kernal[1]) + (0.01416 * image_kernal[2]) + (0.013395 * image_kernal[3]) + (0.011339 * image_kernal[4]) + (0.013395 * image_kernal[5]) + (0.015824 * image_kernal[6]) + (0.016728 * image_kernal[7]) + (0.015824 * image_kernal[8]) + (0.013395 * image_kernal[9]) + (0.01416 * image_kernal[10]) + (0.016728 * image_kernal[11]) + (0.017684 * image_kernal[12]) + (0.016728 * image_kernal[13]) + (0.01416 * image_kernal[14]) + (0.013395 * image_kernal[15]) + (0.015824 * image_kernal[16]) + (0.016728 * image_kernal[17]) + (0.015824 * image_kernal[18]) + (0.013395 * image_kernal[19]) + (0.011339 * image_kernal[20]) + (0.013395 * image_kernal[21]) + (0.01416 * image_kernal[22]) + (0.013395 * image_kernal[23]) + (0.011339 * image_kernal[24]);
              // sigma = 5
-             result1 = (0.0054 * image_kernal[0]) + (0.0058 * image_kernal[1]) + (0.0059 * image_kernal[2]) + (0.00058 * image_kernal[3]) + (0.0054 * image_kernal[4]) + (0.0058 * image_kernal[5]) + (0.0061 * image_kernal[6]) + (0.0062 * image_kernal[7]) + (0.0061 * image_kernal[8]) + (0.0058 * image_kernal[9]) + (0.0059 * image_kernal[10]) + (0.0062 * image_kernal[11]) + (0.0064 * image_kernal[12]) + (0.0062 * image_kernal[13]) + (0.0059 * image_kernal[14]) + (0.0058 * image_kernal[15]) + (0.0061 * image_kernal[16]) + (0.0062 * image_kernal[17]) + (0.0061 * image_kernal[18]) + (0.0058 * image_kernal[19]) + (0.0054 * image_kernal[20]) + (0.0058 * image_kernal[21]) + (0.0059 * image_kernal[22]) + (0.0058 * image_kernal[23]) + (0.0054 * image_kernal[24]);
+             result1 = (0.005425 * image_kernal[0]) + (0.00576 * image_kernal[1]) + (0.005877 * image_kernal[2]) + (0.00576 * image_kernal[3]) + (0.005425 * image_kernal[4]) + (0.00576 * image_kernal[5]) + (0.006117 * image_kernal[6]) + (0.00624 * image_kernal[7]) + (0.006117 * image_kernal[8]) + (0.00576 * image_kernal[9]) + (0.005877 * image_kernal[10]) + (0.00624 * image_kernal[11]) + (0.006366 * image_kernal[12]) + (0.00624 * image_kernal[13]) + (0.005877 * image_kernal[14]) + (0.00576 * image_kernal[15]) + (0.006117 * image_kernal[16]) + (0.00624 * image_kernal[17]) + (0.006117 * image_kernal[18]) + (0.00576 * image_kernal[19]) + (0.005425 * image_kernal[20]) + (0.00576 * image_kernal[21]) + (0.005877 * image_kernal[22]) + (0.00576 * image_kernal[23]) + (0.005425 * image_kernal[24]);
+             // sigma = 7
+             result2 = (0.002993 * image_kernal[0]) + (0.003086 * image_kernal[1]) + (0.003118 * image_kernal[2]) + (0.003086 * image_kernal[3]) + (0.002993 * image_kernal[4]) + (0.003086 * image_kernal[5]) + (0.003182 * image_kernal[6]) + (0.003215 * image_kernal[7]) + (0.003182 * image_kernal[8]) + (0.003086 * image_kernal[9]) + (0.003118 * image_kernal[10]) + (0.003215 * image_kernal[11]) + (0.003248 * image_kernal[12]) + (0.003215 * image_kernal[13]) + (0.003118 * image_kernal[14]) + (0.003086 * image_kernal[15]) + (0.003182 * image_kernal[16]) + (0.003215 * image_kernal[17]) + (0.003182 * image_kernal[18]) + (0.003086 * image_kernal[19]) + (0.002993 * image_kernal[20]) + (0.003086 * image_kernal[21]) + (0.003118 * image_kernal[22]) + (0.003086 * image_kernal[23]) + (0.002993 * image_kernal[24]);
+             // sigma = 9
+             result3 =  (0.00187 * image_kernal[0]) + (0.001905 * image_kernal[1]) + (0.001917 * image_kernal[2]) + (0.001905 * image_kernal[3]) + (0.00187 * image_kernal[4]) + (0.001905 * image_kernal[5]) + (0.001941 * image_kernal[6]) + (0.001953 * image_kernal[7]) + (0.001941 * image_kernal[8]) + (0.001905 * image_kernal[9]) + (0.001917 * image_kernal[10]) + (0.001953 * image_kernal[11]) + (0.001965 * image_kernal[12]) + (0.001953 * image_kernal[13]) + (0.001917 * image_kernal[14]) + (0.001905 * image_kernal[15]) + (0.001941 * image_kernal[16]) + (0.001953 * image_kernal[17]) + (0.001941 * image_kernal[18]) + (0.001905 * image_kernal[19]) + (0.00187 * image_kernal[20]) + (0.001905 * image_kernal[21]) + (0.001917 * image_kernal[22]) + (0.001905 * image_kernal[23]) + (0.00187 * image_kernal[24]);
 
-             //result2 = (0.0113 * image_kernal[0]) + (0.0134 * image_kernal[1]) + (0.0142 * image_kernal[2]) + (0.0134 * image_kernal[3]) + (0.0113 * image_kernal[4]) + (0.0134 * image_kernal[5]) + (0.0158 * image_kernal[6]) + (0.0167 * image_kernal[7]) + (0.0158 * image_kernal[8]) + (0.0134 * image_kernal[9]) + (0.0142 * image_kernal[10]) + (0.0167 * image_kernal[11]) + (0.0177 * image_kernal[12]) + (0.0167 * image_kernal[13]) + (0.0142 * image_kernal[14]) + (0.0134 * image_kernal[15]) + (0.0158 * image_kernal[16]) + (0.0167 * image_kernal[17]) + (0.0158 * image_kernal[18]) + (0.0134 * image_kernal[19]) + (0.0113 * image_kernal[20]) + (0.0134 * image_kernal[21]) + (0.0142 * image_kernal[22]) + (0.0134 * image_kernal[23]) + (0.0113 * image_kernal[24]);
-
-             //result3 = (0.0113 * image_kernal[0]) + (0.0134 * image_kernal[1]) + (0.0142 * image_kernal[2]) + (0.0134 * image_kernal[3]) + (0.0113 * image_kernal[4]) + (0.0134 * image_kernal[5]) + (0.0158 * image_kernal[6]) + (0.0167 * image_kernal[7]) + (0.0158 * image_kernal[8]) + (0.0134 * image_kernal[9]) + (0.0142 * image_kernal[10]) + (0.0167 * image_kernal[11]) + (0.0177 * image_kernal[12]) + (0.0167 * image_kernal[13]) + (0.0142 * image_kernal[14]) + (0.0134 * image_kernal[15]) + (0.0158 * image_kernal[16]) + (0.0167 * image_kernal[17]) + (0.0158 * image_kernal[18]) + (0.0134 * image_kernal[19]) + (0.0113 * image_kernal[20]) + (0.0134 * image_kernal[21]) + (0.0142 * image_kernal[22]) + (0.0134 * image_kernal[23]) + (0.0113 * image_kernal[24]);
-             result = result0 - result1;
+             result = result3;
              count = count + 1;
              if(count != (N-4)*(M-4))
              begin
@@ -137,7 +138,7 @@ begin
  endcase
 end
 
-assign fill_now = ((PS==FIX) || (PS==CONVOLUTE)) ? 1'b0 : 1'b1; //storage is full when PS is in FIX and CONVOLUTE states.
+assign fill_now = (PS==CONVOLUTE) ? 1'b1 : 1'b0; //storage is full when PS is in FIX and CONVOLUTE states.
 assign Dout = (PS==CONVOLUTE) ? result : 16'hzzzz;  //output data is available when PS is in CONVOLUTE state.
 
 endmodule

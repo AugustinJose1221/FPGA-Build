@@ -10,5 +10,5 @@ for i in content.split("\n"):
         l.append(val)
     else:
         continue
-bgrImage = numpy.array(l).reshape(64, 64, 3)
-cv2.imwrite('Out.jpg', bgrImage)
+bgrImage = numpy.array(l).reshape(60, 60)
+cv2.imwrite('FilterOut.jpg', bgrImage)

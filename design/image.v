@@ -12,7 +12,7 @@ integer ptr;
 
 initial
 begin
- $readmemh("res/data.txt", mem);
+ $readmemh("../res/data.txt", mem);
  ptr <= 0;
 end
 
