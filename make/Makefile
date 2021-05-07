@@ -10,6 +10,6 @@ create:
 	${CC} ${FLAGS} -o ../outfiles/output.bin ${SOURCE_FILES}
 	vvp ../outfiles/output.bin
 simulate:
-	gtkwave ${DUMPFILES}
+	gtkwave ${DUMPFILES} -g
 clean:
 	rm -f ../outfiles/*.bin

@@ -43,6 +43,8 @@ RWM_2 Memory_2 (clk, rst_n, RWM_2_enable, rw_2, clear, GS_valid, GS_data, RWM_2_
 
 filter5x5 FILTER(RWM_2_data, RWM_2_valid, rst_n, clk, fill_now, Dout);
 
+//display Display(clk, RWM_2_valid, RWM_2_data);
+
 display Display(clk, fill_now, Dout);
 
 initial
@@ -59,7 +61,7 @@ begin
  start = 1;
  #2;
  start = 0;
- #100000;
+ #3200000;
  $finish;
 end
 

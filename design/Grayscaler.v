@@ -30,7 +30,7 @@ module Grayscaler(
  output reg     GS_done                  //after the completion of an operation done is set to 1. It is a status signal to drive the controller
 );
 
-parameter N = 64, M = 64;           // Height and width of the image
+parameter N = 480, M = 320;           // Height and width of the image
 reg [7:0] red, green, blue, result;
 integer c, d, k=0;
 

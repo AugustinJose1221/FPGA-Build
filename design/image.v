@@ -5,14 +5,14 @@ output reg          data_valid,
 output reg [7:0]    data_out);
 
 
-parameter N = 64, M = 64;
+parameter N = 480, M = 320;
 
 reg [7:0] mem[3*N*M:0];
 integer ptr;
 
 initial
 begin
- $readmemh("../res/data.txt", mem);
+ $readmemh("../res/data2.txt", mem);
  ptr <= 0;
 end
 
