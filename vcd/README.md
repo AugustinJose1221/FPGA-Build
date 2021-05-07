@@ -5,4 +5,3 @@ To display a waveform,
   + Run gtkwave vcd_filename.vcd
   + Expand the module elements in the left sidebar to view each register, wire and i/o ports of that module
   + Double click on a signal to display it on the graph
-...
