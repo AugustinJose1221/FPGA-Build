@@ -11,4 +11,4 @@ for i in content.split("\n"):
     else:
         continue
 bgrImage = numpy.array(l).reshape(480, 320)
-cv2.imwrite('SIGMA_4_5.jpg', bgrImage)
+cv2.imwrite('DIFF1.jpg', bgrImage)
