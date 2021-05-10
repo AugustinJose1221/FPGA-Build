@@ -11,4 +11,4 @@ for i in content.split("\n"):
     else:
         continue
 bgrImage = numpy.array(l).reshape(478, 318)
-cv2.imwrite('KEYPOINTS2.jpg', bgrImage)
+cv2.imwrite('random.jpg', bgrImage)
