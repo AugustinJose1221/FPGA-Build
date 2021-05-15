@@ -68,7 +68,7 @@ begin
  start = 1;
  #2;
  start = 0;
- #3680050;
+ #7680050;
  $finish;
 end
 

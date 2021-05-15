@@ -34,7 +34,7 @@ output          RWM_valid,                // an active high signal indicating th
 output reg      RWM_done                  // after the completion of an operation done is set to 1. It is a status signal to drive the controller
 );
 
-parameter N = 480, M = 320;           // Height and width of the image
+parameter N = 450, M = 600;           // Height and width of the image
 reg [7:0] DATA[0:(3*N*M - 1)];    // RWM register array
 
 reg [2:0] CS, NS;                 // RWM state variables
