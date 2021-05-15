@@ -34,7 +34,7 @@ output          RWM_valid,                // an active high signal indicating th
 output reg      RWM_done                  // after the completion of an operation done is set to 1. It is a status signal to drive the controller
 );
 
-parameter N = 2, M = 2;           // Height and width of the image
+parameter N = 450, M = 600;           // Height and width of the image
 reg [7:0] DATA[0:(3*N*M - 1)];    // RWM register array
 
 reg [2:0] CS, NS;                 // RWM state variables
@@ -42,14 +42,18 @@ reg [2:0] CS, NS;                 // RWM state variables
 //RWM states
 parameter INACTIVE = 3'b000, READ = 3'b001, WRITE = 3'b010, WAIT = 3'b011, CLEANUP = 3'b100;
 
-integer i, j;                    // Loop variable for addressing the RWM register array
+integer i, j, k = 0;                    // Loop variable for addressing the RWM register array
 
 // Sequential Logic
 always @(posedge clk or negedge rst_n)
 begin
   if (~rst_n)
     CS <= INACTIVE;
-  else CS <= NS;
+  else
+  begin
+   CS <= NS;
+   k = (CS == READ) ? k + 1 : 0;
+  end
 end
 
 always @(posedge clk)
@@ -100,7 +104,7 @@ begin
   end
   READ:
   begin
-   if (pause)
+   if (k == 2 && i != 3*N*M - 1)
     NS = WAIT;
    else NS = (i == 3*N*M - 1) ? INACTIVE : READ;
    RWM_done = (i == 3*N*M - 1) ? 1'b1 : 1'b0;
@@ -108,7 +112,7 @@ begin
   WAIT:
   begin
    RWM_done = 1'b0;
-   if (pause == 1'b0)
+   if (k == 3)
     NS = READ;
    else NS = WAIT;
   end

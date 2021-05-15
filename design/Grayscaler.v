@@ -30,9 +30,9 @@ module Grayscaler(
  output reg     GS_done                  //after the completion of an operation done is set to 1. It is a status signal to drive the controller
 );
 
-parameter N = 2, M = 2;           // Height and width of the image
+parameter N = 450, M = 600;           // Height and width of the image
 reg [7:0] red, green, blue, result;
-integer c, d;
+integer c, d, k=0;
 
 parameter IDLE = 2'b00, FILL = 2'b01, CALCULATE = 2'b10;
 reg [1:0] CS, NS;
@@ -44,8 +44,11 @@ if(~rst_n)
  else
  begin
   CS <= NS;
+  k = (RWM_valid) ?  k + 1 : 0;
+  d = (k == 2) ? d + 1 : d;
  end
 end
+
 
 always @(*)
 begin
@@ -58,19 +61,20 @@ begin
   green = 8'h00;
   blue = 8'h00;
   GS_done = 1'b0;
-  if(GS_enable)// && RWM_valid)
+  if(GS_enable)
+  begin
    NS = FILL;
+  end
   else NS = IDLE;
  end
  FILL:
  begin
   GS_done = 1'b0;
   c = (c != 3) ? c + 1 : 1;
-  red = (c == 1) ? Din : red;
-  green = (c == 2) ? Din : green;
-  blue = (c == 3) ? Din : blue;
-  NS = (c == 3) ? CALCULATE : FILL;
-  d = (c == 3) ? d + 1 : d;
+  red = (k == 0) ? Din : red;
+  green = (k == 1) ? Din : green;
+  blue = (k == 2) ? Din : blue;
+  NS = (k == 2) ? CALCULATE : FILL;
  end
  CALCULATE:
  begin
@@ -84,6 +88,6 @@ end
 
 assign pause = ((CS == FILL) && (c == 3) && (d != N*M)) ? 1'b1 : 1'b0;
 assign Dout = (CS == CALCULATE) ? result : 8'hzz;
-assign GS_valid = ((CS == FILL) && (c == 3)) ? 1'b1 : 1'b0;
+assign GS_valid = ((CS == FILL) && (k == 2)) ? 1'b1 : 1'b0;
 
 endmodule
