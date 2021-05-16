@@ -37,8 +37,9 @@ integer count, i, j, k, p, q, r, s, o, pos;
 integer j1, j2, j3, j4;
 integer k1, k2, k3;
 parameter IDLE = 3'b000, STORE = 3'b001, FIX = 3'b010, CONVOLUTE = 3'b011, PADDING = 3'b100;
-parameter N = 450, M = 600;                                                       //resolution of the image
 
+parameter N = 450, M = 600;
+//parameter N = 480, M = 320;
 
 //sequential logic
 always @(posedge clk or posedge rst)

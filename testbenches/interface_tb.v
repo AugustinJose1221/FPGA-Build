@@ -36,6 +36,7 @@ wire filter_out;
 
 wire [7:0] Dout;
 wire keypoint_valid;
+wire sobel_done;
 
 Controller control (clk, rst_n, RWM_1_done, RWM_2_done, GS_done, start, RWM_1_enable, rw_1, RWM_2_enable, rw_2, camera_enable, GS_enable);
 
@@ -47,9 +48,10 @@ RWM_1 Memory_1 (clk, rst_n, RWM_1_enable, rw_1, clear, pause, camera_data, RWM_1
 
 RWM_2 Memory_2 (clk, rst_n, RWM_2_enable, rw_2, clear, GS_valid, GS_data, RWM_2_data, RWM_2_valid, RWM_2_done);
 
-filter5x5 FILTER(RWM_2_data, RWM_2_valid, rst_n, clk, fill_now, Diff1, Diff2, Diff3, filter_out);
+sobel_filter SOBEL(clk, rst_n, RWM_2_valid, RWM_2_data, keypoint_valid, Dout, sobel_done);
+//filter5x5 FILTER(RWM_2_data, RWM_2_valid, rst_n, clk, fill_now, Diff1, Diff2, Diff3, filter_out);
 
-keypoints KEYPOINT(clk, rst_n, fill_now, Diff1, Diff2, Diff3, Dout, keypoint_valid);
+//keypoints KEYPOINT(clk, rst_n, fill_now, Diff1, Diff2, Diff3, Dout, keypoint_valid);
 //display Display(clk, RWM_2_valid, RWM_2_data);
 
 display Display(clk, keypoint_valid, Dout);

@@ -7,7 +7,11 @@ input [15:0]        Diff2,
 input [15:0]        Diff3,
 output [7:0]        Dout,
 output              output_valid);
+
+
 parameter N = 450, M = 600;
+//parameter N = 480, M = 320;
+
 parameter IDLE = 3'b000, STORE = 3'b001, LOAD = 3'b010, CALCULATE = 3'b011;
 
 integer i, j, k, p, q, o, count;
