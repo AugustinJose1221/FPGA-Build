@@ -5,6 +5,8 @@ input         data_valid,
 input [7:0]   Din,
 output        output_valid,
 output [15:0] Dout,
+output        CHL_X;
+output        CHL_Y;
 output        done);
 
 reg [7:0] storage[0: (N*M)-1];
@@ -13,6 +15,8 @@ reg [7:0] sobel_kernal[0:8];
 reg [15:0] sobel_x;
 reg [15:0] sobel_y;
 reg [15:0] result;
+reg channel_x;
+reg channel_y;
 
 reg [2:0] PS, NS;
 
@@ -23,7 +27,7 @@ parameter N = 450, M = 600;
 //parameter N = 480, M = 320;
 
 //sequential logic
-always @(posedge clk or posedge rst_n)
+always @(posedge clk or negedge rst_n)
 begin
  if (~rst_n)
   PS <= IDLE;    //every value is reset to its default value in IDLE
@@ -73,6 +77,8 @@ begin
  CONVOLUTE: begin
               sobel_x = (sobel_kernal[2] + (2*sobel_kernal[5]) + sobel_kernal[8]) - (sobel_kernal[0] + (2*sobel_kernal[3]) + sobel_kernal[6]);
               sobel_y = (sobel_kernal[0] + (2*sobel_kernal[1]) + sobel_kernal[2]) - (sobel_kernal[6] + (2*sobel_kernal[7]) + sobel_kernal[8]);
+              channel_x = ((sobel_kernal[0] + (2*sobel_kernal[3]) + sobel_kernal[6]) > (sobel_kernal[2] + (2*sobel_kernal[5]) + sobel_kernal[8])) ? 1'b0 : 1'b1;
+              channel_y = ((sobel_kernal[6] + (2*sobel_kernal[7]) + sobel_kernal[8]) > (sobel_kernal[0] + (2*sobel_kernal[1]) + sobel_kernal[2])) ? 1'b0 : 1'b1;
               result = ((sobel_x * sobel_x) + (sobel_y * sobel_y))**0.5;
 
               k = (k == M-3) ? 0 : k + 1;
@@ -86,5 +92,7 @@ end
 
 assign output_valid = (PS==CONVOLUTE) ? 1'b1 : 1'b0;
 assign Dout = (PS==CONVOLUTE) ? result : 16'hzzzz;
+assign CHL_X = (PS==CONVOLUTE) ? channel_x : 1'bz;
+assign CHL_Y = (PS==CONVOLUTE) ? channel_y : 1'bz;
 assign done = (count == (N-2)*(M-2)) ? 1'b1 : 1'b0;
 endmodule
