@@ -5,8 +5,8 @@ input         data_valid,
 input [7:0]   Din,
 output        output_valid,
 output [15:0] Dout,
-output        CHL_X;
-output        CHL_Y;
+output        CHL_X,
+output        CHL_Y,
 output        done);
 
 reg [7:0] storage[0: (N*M)-1];

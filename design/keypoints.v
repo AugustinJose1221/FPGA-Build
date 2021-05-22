@@ -100,7 +100,7 @@ begin
             end
  endcase
 end
-assign output_valid = (PS==CALCULATE) ? 1'b1 : 1'b0;
+assign output_valid = (PS==CALCULATE && result != 8'h00) ? 1'b1 : 1'b0;
 assign Dout = (PS==CALCULATE) ? result : 8'hzz;
 assign done = (count == (N-2)*(M-2)) ? 1'b1 : 1'b0;
 endmodule

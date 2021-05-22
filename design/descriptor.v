@@ -66,7 +66,7 @@ reg [1:0] w15[0:15];
 reg [1:0] w16[0:15];
 
 reg [1:0] grad_direction[0:((N-2)*(M-2))-1];
-reg [2:0] PS, NS;
+reg [4:0] PS, NS;
 
 parameter IDLE = 4'b0000, GRAD = 4'b0001, ASSIGN = 4'b0010, ROW = 4'b0011, CHECK = 4'b0100, FILL = 4'b0101, PROCESS = 4'b0110, COMPUTE = 4'b0111, KEY = 4'b1000;
 parameter N = 450, M = 600;
@@ -105,7 +105,7 @@ begin
   limit <= j;
 end
 
-always @(*)
+always @(sobel_valid, keypoint_valid, keypoint_done, i, count, PS, j, k)
 begin
  case (PS)
  IDLE: begin
@@ -133,7 +133,8 @@ begin
           NS = (count == limit-1) ? IDLE : ROW;
          end
  ROW: begin
-       o = (k-(o*M) > M) ? o + 1 : o;
+       o = k/M;
+       // o = (k-(o*M) > M) ? o + 1 : o;
        NS = (k-(o*M) > M) ? ROW : CHECK;
       end
  CHECK: begin
