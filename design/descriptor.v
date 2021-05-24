@@ -185,6 +185,8 @@ begin
           w14[r] = grad_direction[((k-(M + ((o-1)*2)))-7) + q + 4 + ((M-2)*(p+12))];
           w15[r] = grad_direction[((k-(M + ((o-1)*2)))-7) + q + 8 + ((M-2)*(p+12))];
           w16[r] = grad_direction[((k-(M + ((o-1)*2)))-7) + q + 12 + ((M-2)*(p+12))];
+
+          r = r + 1;
          end
         end
         NS = PROCESS;
