@@ -34,7 +34,7 @@ output          RWM_valid,                // an active high signal indicating th
 output reg      RWM_done                  // after the completion of an operation done is set to 1. It is a status signal to drive the controller
 );
 
-parameter N = 450, M = 600;
+parameter N = 450, M = 450;
 //parameter N = 480, M = 320;
 
 reg [7:0] DATA[0:(N*M - 1)];      // RWM register array

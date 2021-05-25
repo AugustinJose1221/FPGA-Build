@@ -13,7 +13,7 @@ integer ptr;
 
 initial
 begin
- $readmemh("../res/left.txt", mem);
+ $readmemh("../res/right.txt", mem);
  ptr <= 0;
 end
 

@@ -3,7 +3,7 @@
 
 CC=iverilog
 FLAGS=-Wall -Winfloop
-SOURCE_FILES= ../testbenches/interface_tb.v ../design/Controller.v ../design/image.v ../design/display.v ../design/RWM_1.v ../design/RWM_2.v ../design/camera.v ../design/Grayscaler.v ../design/filter5x5.v ../design/keypoints.v ../design/sobel_filter.v ../design/descriptor.v
+SOURCE_FILES= ../testbenches/top_tb.v ../design/Controller.v ../design/image.v ../design/image2.v ../design/display.v ../design/RWM_1.v ../design/RWM_2.v ../design/camera.v ../design/Grayscaler.v ../design/filter5x5.v ../design/keypoints.v ../design/sobel_filter.v ../design/descriptor.v ../design/matcher.v
 DUMPFILES=../vcd/interface_tb.vcd
 
 create:

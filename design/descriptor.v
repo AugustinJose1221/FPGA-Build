@@ -69,7 +69,7 @@ reg [1:0] grad_direction[0:((N-2)*(M-2))-1];
 reg [4:0] PS, NS;
 
 parameter IDLE = 4'b0000, GRAD = 4'b0001, ASSIGN = 4'b0010, ROW = 4'b0011, CHECK = 4'b0100, FILL = 4'b0101, PROCESS = 4'b0110, COMPUTE = 4'b0111, KEY = 4'b1000;
-parameter N = 450, M = 600;
+parameter N = 450, M = 450;
 //parameter N = 480, M = 320;
 
 always @(posedge clk or negedge rst_n)
@@ -101,8 +101,10 @@ begin
   limit <= j;
  end
  else
+ begin
   j <= j;
   limit <= j;
+ end
 end
 
 always @(sobel_valid, keypoint_valid, keypoint_done, i, count, PS, j, k)

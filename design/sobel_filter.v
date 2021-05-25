@@ -23,7 +23,7 @@ reg [2:0] PS, NS;
 integer count, i, j, k, p, q, o;
 parameter IDLE = 3'b000, STORE = 3'b001, FIX = 3'b010, CONVOLUTE = 3'b011;
 
-parameter N = 450, M = 600;
+parameter N = 450, M = 450;
 //parameter N = 480, M = 320;
 
 //sequential logic

@@ -30,7 +30,7 @@ module Grayscaler(
  output reg     GS_done                  //after the completion of an operation done is set to 1. It is a status signal to drive the controller
 );
 
-parameter N = 450, M = 600;
+parameter N = 450, M = 450;
 //parameter N = 480, M = 320;
 
 reg [7:0] red, green, blue, result;
