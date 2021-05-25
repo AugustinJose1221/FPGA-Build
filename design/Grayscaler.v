@@ -16,7 +16,7 @@ The module makes use of a FSM with 3 states:-
              After placing the computed value in the output bus, a status signal is sent to the second memory module to store this value.
 */
 
-`timescale 1ns/1ns
+//`timescale 1ns/1ns
 
 module Grayscaler(
  input          clk,                     //clock
@@ -30,7 +30,9 @@ module Grayscaler(
  output reg     GS_done                  //after the completion of an operation done is set to 1. It is a status signal to drive the controller
 );
 
-parameter N = 450, M = 600;           // Height and width of the image
+parameter N = 450, M = 450;
+//parameter N = 480, M = 320;
+
 reg [7:0] red, green, blue, result;
 integer c, d, k=0;
 

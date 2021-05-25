@@ -1,7 +1,7 @@
 from PIL import Image
 
-im = Image.open("Final2.jpg")
-fil = open('data2.txt', 'w')
+im = Image.open("right.jpg")
+fil = open('right.txt', 'w')
 pixel = im.load()
 row, column = im.size
 for y in range(column):

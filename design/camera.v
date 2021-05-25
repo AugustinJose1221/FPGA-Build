@@ -1,5 +1,5 @@
 
-`timescale 1ns/1ns
+//`timescale 1ns/1ns
 
 module camera(
 input               clk,                                  // clock

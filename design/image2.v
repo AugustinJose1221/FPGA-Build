@@ -1,4 +1,4 @@
-module image(
+module image2(
 input               clk,
 input               camera_en,
 output reg          data_valid,
@@ -13,7 +13,7 @@ integer ptr;
 
 initial
 begin
- $readmemh("../res/left.txt", mem);
+ $readmemh("../res/right.txt", mem);
  ptr <= 0;
 end
 
