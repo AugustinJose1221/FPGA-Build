@@ -85,7 +85,7 @@ begin
  end
 end
 
-always @(*)
+always @(left_valid, right_valid, left_done, right_done, PS, i, j, p, q)
 begin
  case (PS)
  IDLE: begin
@@ -97,7 +97,7 @@ begin
         right_limit = 0;
         flag1 = 1'b0;
         flag2 = 1'b0;
-        least_error = 32'hffffffff;
+        least_error = 32'h0fffffff;
         error = 0;
         error_channel1 = 0;
         error_channel2 = 0;
@@ -125,9 +125,9 @@ begin
         error = error_channel1 + error_channel2 + error_channel3 + error_channel4;
         sample_keypoint1 = left_keypoints[p];
         sample_keypoint2 = right_keypoints[q];
-        p = (p == left_limit) ? 0 : p + 1;
+        p = (p == left_limit-1) ? 0 : p + 1;
         q = (p == 0) ? q + 1 : q;
-        NS = (q == right_limit+1) ? DONE : MATCH;
+        NS = (q == right_limit) ? DONE : MATCH;
        end
  MATCH: begin
          final_keypoint1 = (least_error < error) ? final_keypoint1 : sample_keypoint1;

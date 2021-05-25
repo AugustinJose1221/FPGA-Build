@@ -16,7 +16,7 @@ The module makes use of a FSM with 3 states:-
              After placing the computed value in the output bus, a status signal is sent to the second memory module to store this value.
 */
 
-`timescale 1ns/1ns
+//`timescale 1ns/1ns
 
 module Grayscaler(
  input          clk,                     //clock

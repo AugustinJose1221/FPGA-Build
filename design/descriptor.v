@@ -356,5 +356,5 @@ assign descriptor_channel_1 = (PS == COMPUTE) ? descriptor_1 : 16'hzzzz;
 assign descriptor_channel_2 = (PS == COMPUTE) ? descriptor_2 : 16'hzzzz;
 assign descriptor_channel_3 = (PS == COMPUTE) ? descriptor_3 : 16'hzzzz;
 assign descriptor_channel_4 = (PS == COMPUTE) ? descriptor_4 : 16'hzzzz;
-assign done = (count == limit-1) ? 1'b1 : 1'b0;
+assign done = (count == limit-1 && NS == IDLE) ? 1'b1 : 1'b0;
 endmodule

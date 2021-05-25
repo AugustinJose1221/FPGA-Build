@@ -19,7 +19,7 @@ The 5 states of the FSM used in this module are described below:-
            After completion, it goes back to INACTIVE.
 */
 
-`timescale 1ns/1ns
+//`timescale 1ns/1ns
 
 module RWM_1(
 input           clk,                      // clock

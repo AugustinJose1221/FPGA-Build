@@ -53,7 +53,7 @@ wire [31:0] left_keypoint;
 wire [31:0] right_keypoint;
 
 image L_CAM(clk, l_camera_enable, l_data_valid, l_camera_data);
-image R_CAM(clk, r_camera_enable, r_data_valid, r_camera_data);
+image2 R_CAM(clk, r_camera_enable, r_data_valid, r_camera_data);
 
 RWM_1 L_MEM_1(clk, rst_n, l_RWM_1_enable, l_rw_1, l_clear, l_pause, l_camera_data, l_RWM_1_data, l_RWM_1_valid, l_RWM_1_done);
 RWM_1 R_MEM_1(clk, rst_n, r_RWM_1_enable, r_rw_1, r_clear, r_pause, r_camera_data, r_RWM_1_data, r_RWM_1_valid, r_RWM_1_done);

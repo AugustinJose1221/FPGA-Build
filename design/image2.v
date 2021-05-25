@@ -1,4 +1,4 @@
-module image(
+module image2(
 input               clk,
 input               camera_en,
 output reg          data_valid,
