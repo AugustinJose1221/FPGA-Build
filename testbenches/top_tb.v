@@ -52,6 +52,9 @@ wire matcher_valid;
 wire [31:0] left_keypoint;
 wire [31:0] right_keypoint;
 
+wire stitcher_valid;
+wire [7:0] stitcher_data;
+
 image L_CAM(clk, l_camera_enable, l_data_valid, l_camera_data);
 image2 R_CAM(clk, r_camera_enable, r_data_valid, r_camera_data);
 
@@ -81,6 +84,9 @@ descriptor R_DESCRIPTOR(clk, rst_n, r_keypoint_valid, r_keypoint_out, r_keypoint
 
 matcher MATCH(clk, rst_n, l_descriptor_valid, l_keypoint_value, l_channel1, l_channel2, l_channel3, l_channel4, l_descriptor_done, r_descriptor_valid, r_keypoint_value, r_channel1, r_channel2, r_channel3, r_channel4, r_descriptor_done, matcher_valid, left_keypoint, right_keypoint);
 
+stitcher STITCH(clk, rst_n, l_data_valid, l_camera_data, r_data_valid, r_camera_data, matcher_valid, left_keypoint, right_keypoint, stitcher_valid, stitcher_data);
+
+display DISPLAY(clk, stitcher_valid, stitcher_data);
 
 initial
 begin
@@ -100,7 +106,7 @@ begin
  #2;
  l_start = 0;
  r_start = 0;
- #8680050;
+ #10860050;
  $finish;
 end
 
