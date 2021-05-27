@@ -10,5 +10,5 @@ for i in content.split("\n"):
         l.append(val)
     else:
         continue
-bgrImage = numpy.array(l).reshape(448, 598)
-cv2.imwrite('SOBEL1.jpg', bgrImage)
+bgrImage = numpy.array(l).reshape(450, 900, 3)
+cv2.imwrite('STITCH1.jpg', bgrImage)
