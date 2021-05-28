@@ -79,6 +79,7 @@ The  input  video  stream  for  the  system  is  in  8  bit  RGB format. The inp
 
 Feature extraction from the grayscale images is done using SIFT  algorithm.  SIFT  algorithm  can  be  separated  into  two main steps:
 * Keypoint Detection
+
   SIFT operation begins with discrete convolution of the input image with different Gaussian filters. A Gaussian filter is a widely used image smoothing algorithm defined as:
   <p align="center">
     <img src="https://latex.codecogs.com/svg.latex?\Large&space;G(x,%20y,%20\sigma%20)%20=\frac{1}{2\pi%20\sigma%20^{2}}%20e^{-\frac{(x^{2}%20+%20y^{2})}{2\sigma%20^{2}}}">  
@@ -91,6 +92,20 @@ Feature extraction from the grayscale images is done using SIFT  algorithm.  SIF
 
   Keypoints  are  extracted  from  the  DoG  space  by  finding the  local  maxima  or  minima  values.  A  pixel  is  considered a keypoint if it is a local maxima or minima within a 26 pixel neighbourhood consisting of 9 pixels in the top level, 8 pixels in the middle level and 9 pixels in the bottom level.
 * Descriptor Generation
+
+  Keypoint descriptor is a unique identifier  for  a  particular  keypoint.  SIFT  uses  gradient  magnitude  and  direction  of  the  keypoint  as  the  basis  for  the descriptor.  Gradient  magnitude  and  direction  at  a  point  can be calculated by discrete convolution of the image with Sobel filters. 
+  
+  To generate the keypoint descriptor, gradient magnitude and direction  of  every  point  inside  a  16x16  window  around  each keypoint is calculated. The gradient magnitudes of the 16x16 window  is  convolved  with  a  Gaussian  kernel.  The  gradient magnitudes in every 4x4 cell is combined such that the 16x16 window is reduced to a 4x4 window and 16 gradient directions. Finally, these 16 gradient directions are transferred into eight bins.  Hence  a  128  element  vector  is  built  which  acts  as  the keypoint descriptor.
+  
+#### Frame Stitching
+
+Frame stitching is the process of combining two frames into a single image. Frame stitching is done in two steps:
+* Keypointmatching
+
+  The  keypoint  descriptors  of  keypoints  in  the  video  frames  from  both  camera  sensors  are compared.  If  the  difference  between  the  keypoint  descriptors of  two  keypoints,  one  from  each  camera  sensor,  is  below  a error  threshold,  then  they  are considered  as  a  keypoint  pair.  The keypoint pair with the least difference between their keypoint descriptors is taken as the reference keypoints.  
+* Image blending
+
+  A  weighed  average  method  is  used to  blend  the  two  frames  into  a  single  image. The  values  of  pixels  in  the  overlapped  region  is  equal to  the  weighted  average  values  of  pixels  of  both  the  frames. The  weights  are  chosen  based  on  the  distance  between  the overlapped  pixel  and  the  border  of  the  corresponding  frame.
 
 ### Built With
 
