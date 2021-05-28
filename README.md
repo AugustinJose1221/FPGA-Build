@@ -92,12 +92,22 @@ Feature extraction from the grayscale images is done using SIFT  algorithm.  SIF
   For a given value of σ, the sum of all coefficients in the convolution kernal should be equal to unity. Therefore, the size of the kernal increases as the value of σ increases. 
 
   Once the octave is generated,  a  DoG  space  is  built  based on the four images in the octave. DoG stands for difference of Gaussian.  DoG is a very computationally efficient approximation of Laplacian of Gaussian (LoG). The DoG space is built by  computing  the  difference  between  two  adjacent  Gaussian scale images, pixel by pixel. DoG space of four images in the octave will have three levels. 
+| ![DoG1](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/DIFF1.jpg) | ![DoG2](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/DIFF2.jpg) | ![DoG3](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/DIFF3.jpg) |
+|:---:|:---:|:---:|
+| Top level DoG | Middle level DoG | Bottom level DoG |
 
   Keypoints  are  extracted  from  the  DoG  space  by  finding the  local  maxima  or  minima  values.  A  pixel  is  considered a keypoint if it is a local maxima or minima within a 26 pixel neighbourhood consisting of 9 pixels in the top level, 8 pixels in the middle level and 9 pixels in the bottom level.
+  <p align = "center">
+  <img src = "https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/KEYPOINTS4.jpg"> <br>
+  Keypoints
+  </p>
 * Descriptor Generation
 
   Keypoint descriptor is a unique identifier  for  a  particular  keypoint.  SIFT  uses  gradient  magnitude  and  direction  of  the  keypoint  as  the  basis  for  the descriptor.  Gradient  magnitude  and  direction  at  a  point  can be calculated by discrete convolution of the image with Sobel filters. 
-  
+  <p align = "center">
+  <img src = "https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/SOBEL1.jpg"> <br>
+  Sobel convolution output
+  </p>
   To generate the keypoint descriptor, gradient magnitude and direction  of  every  point  inside  a  16x16  window  around  each keypoint is calculated. The gradient magnitudes of the 16x16 window  is  convolved  with  a  Gaussian  kernel.  The  gradient magnitudes in every 4x4 cell is combined such that the 16x16 window is reduced to a 4x4 window and 16 gradient directions. Finally, these 16 gradient directions are transferred into eight bins.  Hence  a  128  element  vector  is  built  which  acts  as  the keypoint descriptor.
   
 #### Frame Stitching
@@ -106,9 +116,16 @@ Frame stitching is the process of combining two frames into a single image. Fram
 * Keypointmatching
 
   The  keypoint  descriptors  of  keypoints  in  the  video  frames  from  both  camera  sensors  are compared.  If  the  difference  between  the  keypoint  descriptors of  two  keypoints,  one  from  each  camera  sensor,  is  below  a error  threshold,  then  they  are considered  as  a  keypoint  pair.  The keypoint pair with the least difference between their keypoint descriptors is taken as the reference keypoints.  
+  | ![DoG1](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/left.jpg) | ![DoG1](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/right.jpg) |
+  |:---:|:---:|
+  | Input image from left camera | Input image from right camera |
 * Image blending
 
   A  weighed  average  method  is  used to  blend  the  two  frames  into  a  single  image. The  values  of  pixels  in  the  overlapped  region  is  equal to  the  weighted  average  values  of  pixels  of  both  the  frames. The  weights  are  chosen  based  on  the  distance  between  the overlapped  pixel  and  the  border  of  the  corresponding  frame.
+  <p align = "center">
+  <img src = "https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/STITCH1.jpg"> <br>
+  Stitched image
+  </p>
 
 ### Built With
 
