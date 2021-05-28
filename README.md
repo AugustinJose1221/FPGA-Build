@@ -85,6 +85,9 @@ Feature extraction from the grayscale images is done using SIFT  algorithm.  SIF
     <img src="https://latex.codecogs.com/svg.latex?\Large&space;G(x,%20y,%20\sigma%20)%20=\frac{1}{2\pi%20\sigma%20^{2}}%20e^{-\frac{(x^{2}%20+%20y^{2})}{2\sigma%20^{2}}}">  
   </p>
   In the above equation,  G  is  the  Gaussian  kernel  at  the  point  (x,  y) and σ is  the  Gaussian  parameter. Using a larger  value  of σ produces a greater smoothing  effect  on  the  image.  Discrete  convolution of  the  image  with  Gaussian  kernel  generates  an  image  with lesser  noise  and  lesser  details.  In  SIFT,  discrete  convolution with Gaussian kernel is done with four different values of σ. Progressively  higher  values  of σ is  used  to  generate  a  set  of blurred images or an octave. 
+| ![Input image](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/Final2.jpg) | ![Sigma1_6](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/SIGMA_1_6.jpg) | ![Sigma2_26](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/SIGMA_2_26.jpg) | ![Sigma3_2](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/SIGMA_3_2.jpg) | ![Sigma4_5](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/SIGMA_4_5.jpg) |
+|:---:|:---:|:---:|:---:|:---:|
+| Input image | Sigma = 1.6 | Sigma = 2.26 | Sigma = 3.2 | Sigma = 4.5 |
 
   For a given value of σ, the sum of all coefficients in the convolution kernal should be equal to unity. Therefore, the size of the kernal increases as the value of σ increases. 
 
