@@ -69,7 +69,11 @@ The system can be broadly divided into three subystems:
 
 #### Preprocessing
 
-The  input  video  stream  for  the  system  is  in  8  bit  RGB format.  Each  individual  frame  of  the  video  stream  will  have three  channels  corresponding  to  red,  green  and  blue.  The colour  information  in  the  video  frames  does  not  enhance feature  detection.  Moreover,  computation  on  a  3  channel  8 bit image takes more time compared to a single channel 8 bit image. Therefore, the RGB video frame is converted to an 8 bit grayscale image. The generated grayscale images will have lesser noise, more details in the shadows and provides better computational efficiency. 
+The  input  video  stream  for  the  system  is  in  8  bit  RGB format. The input 8 bit image is shown in figure. Each  individual  frame  of  the  video  stream  will  have three  channels  corresponding  to  red,  green  and  blue.  The colour  information  in  the  video  frames  does  not  enhance feature  detection.  Moreover,  computation  on  a  3  channel  8 bit image takes more time compared to a single channel 8 bit image. Therefore, the RGB video frame is converted to an 8 bit grayscale image. The generated grayscale images will have lesser noise, more details in the shadows and provides better computational efficiency, shown in figure. 
+
+| ![Input image](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/img/Final1.jpg) | ![Grayscale image](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/img/OUT2.jpg) |
+|:---:|:---:|
+| Input image | Grayscale image |
 
 #### SIFT Based Feature Extraction
 
