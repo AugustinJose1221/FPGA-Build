@@ -24,21 +24,20 @@ integer count, i, j, k, p, q, o;
 parameter IDLE = 3'b000, STORE = 3'b001, FIX = 3'b010, CONVOLUTE = 3'b011;
 
 parameter N = 450, M = 450;
-//parameter N = 480, M = 320;
 
 //sequential logic
 always @(posedge clk or negedge rst_n)
 begin
  if (~rst_n)
-  PS <= IDLE;    //every value is reset to its default value in IDLE
+  PS <= IDLE;
  else PS <= NS;
 end
 
 always @(posedge clk)
 begin
- if(data_valid)//PS == STORE)
+ if(data_valid)
  begin
-  storage[i] <= Din;    //to store the incoming pixel byte into the next position in the storage array
+  storage[i] <= Din;  
   i <= (i == N*M-1) ? 0 : i + 1;
  end
  else i <= 0;

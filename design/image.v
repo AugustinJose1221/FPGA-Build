@@ -6,7 +6,6 @@ output reg [7:0]    data_out);
 
 
 parameter N = 450, M = 450;
-//parameter N = 480, M = 320;
 
 reg [7:0] mem[3*N*M:0];
 integer ptr;

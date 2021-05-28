@@ -4,11 +4,11 @@
 module camera(
 input               clk,                                  // clock
 input               camera_en,                            // camera enable
-output reg          data_valid,                      // data valid
-output reg [7:0]    data_out);                 // output data bus
+output reg          data_valid,                           // data valid
+output reg [7:0]    data_out);                            // output data bus
 
 
-reg [7:0] DATA [0:74];                        // Camera Data
+reg [7:0] DATA [0:74];                                    // Camera Data
 integer ptr;
 
 initial

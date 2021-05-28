@@ -1,6 +1,6 @@
 module display_tb();
-reg clk;
-reg data_valid;
+reg       clk;
+reg       data_valid;
 reg [7:0] data_out;
 
 display UUT(clk, data_valid, data_out);

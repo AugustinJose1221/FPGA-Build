@@ -11,7 +11,6 @@ output              done);
 
 
 parameter N = 450, M = 450;
-//parameter N = 480, M = 320;
 
 parameter IDLE = 3'b000, STORE = 3'b001, LOAD = 3'b010, CALCULATE = 3'b011;
 

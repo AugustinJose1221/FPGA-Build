@@ -70,7 +70,6 @@ reg [4:0] PS, NS;
 
 parameter IDLE = 4'b0000, GRAD = 4'b0001, ASSIGN = 4'b0010, ROW = 4'b0011, CHECK = 4'b0100, FILL = 4'b0101, PROCESS = 4'b0110, COMPUTE = 4'b0111, KEY = 4'b1000;
 parameter N = 450, M = 450;
-//parameter N = 480, M = 320;
 
 always @(posedge clk or negedge rst_n)
 begin
@@ -136,7 +135,6 @@ begin
          end
  ROW: begin
        o = k/M;
-       // o = (k-(o*M) > M) ? o + 1 : o;
        NS = (k-(o*M) > M) ? ROW : CHECK;
       end
  CHECK: begin
