@@ -33,9 +33,6 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -113,13 +110,13 @@ Feature extraction from the grayscale images is done using SIFT  algorithm.  SIF
 #### Frame Stitching
 
 Frame stitching is the process of combining two frames into a single image. Frame stitching is done in two steps:
-* Keypointmatching
+* Keypoint Matching
 
   The  keypoint  descriptors  of  keypoints  in  the  video  frames  from  both  camera  sensors  are compared.  If  the  difference  between  the  keypoint  descriptors of  two  keypoints,  one  from  each  camera  sensor,  is  below  a error  threshold,  then  they  are considered  as  a  keypoint  pair.  The keypoint pair with the least difference between their keypoint descriptors is taken as the reference keypoints.  
   | ![DoG1](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/left.jpg) | ![DoG1](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/right.jpg) |
   |:---:|:---:|
   | Input image from left camera | Input image from right camera |
-* Image blending
+* Image Blending
 
   A  weighed  average  method  is  used to  blend  the  two  frames  into  a  single  image. The  values  of  pixels  in  the  overlapped  region  is  equal to  the  weighted  average  values  of  pixels  of  both  the  frames. The  weights  are  chosen  based  on  the  distance  between  the overlapped  pixel  and  the  border  of  the  corresponding  frame.
   <p align = "center">
@@ -127,47 +124,56 @@ Frame stitching is the process of combining two frames into a single image. Fram
   Stitched image
   </p>
 
-### Built With
-
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
-* [Laravel](https://laravel.com)
-
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+The following packages needs to be installed on the Linux system before executing the source code.
+* Icarus Verilog
   ```sh
-  npm install npm@latest -g
+  apt-get install iverilog
+  ```
+  
+* Python
+  ```sh
+  apt-get install python3
+  ```
+
+* OpenCV
+  ```sh
+  pip3 install opencv-contrib-python
+  ```
+* numpy
+  ```sh
+  pip3 install numpy
+  ```
+  
+* pillow
+  ```sh
+  pip3 install pillow
   ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/AugustinJose1221/FPGA-Build.git
    ```
-3. Install NPM packages
+2. Change working directory
    ```sh
-   npm install
+   cd FPGA-Build/make
    ```
-4. Enter your API in `config.js`
-   ```JS
-   const API_KEY = 'ENTER YOUR API';
+3. Compile the design
+   ```sh
+   make create
    ```
-
-
-
+4. To view the RTL waveform
+   ```sh
+   make simulate
+   ```
+5. Generate output image
+   ```sh
+   python3 hexToImage.py
+   ```
 <!-- USAGE EXAMPLES -->
 ## Usage
 
