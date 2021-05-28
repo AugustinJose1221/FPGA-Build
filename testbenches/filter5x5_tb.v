@@ -1,10 +1,10 @@
 module filter5x5_tb;
 
-reg [7:0] Din;
-reg rst, clk, data_valid;
-wire fill_now;
-wire [1:0] state;
-wire [15:0] Dout;
+reg [7:0]     Din;
+reg           rst, clk, data_valid;
+wire          fill_now;
+wire [1:0]    state;
+wire [15:0]   Dout;
 
 filter5x5 UUT (Din, data_valid, rst, clk, fill_now, Dout);
 

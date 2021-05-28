@@ -19,7 +19,6 @@ The 5 states of the FSM used in this module are described below:-
            After completion, it goes back to INACTIVE.
 */
 
-//`timescale 1ns/1ns
 
 module RWM_2(
 input           clk,                      // clock
@@ -37,14 +36,14 @@ output reg      RWM_done                  // after the completion of an operatio
 parameter N = 450, M = 450;
 //parameter N = 480, M = 320;
 
-reg [7:0] DATA[0:(N*M - 1)];      // RWM register array
+reg [7:0] DATA[0:(N*M - 1)];              // RWM register array
 
-reg [2:0] CS, NS;                 // RWM state variables
+reg [2:0] CS, NS;                         // RWM state variables
 
 //RWM states
 parameter INACTIVE = 3'b000, READ = 3'b001, WRITE = 3'b010, WAIT = 3'b011, CLEANUP = 3'b100;
 
-integer i, j;                     // Loop variable for addressing the RWM register array
+integer i, j;                             // Loop variable for addressing the RWM register array
 
 // Sequential Logic
 always @(posedge clk or negedge rst_n)
@@ -57,26 +56,22 @@ end
 always @(posedge clk)
 begin
  case (CS)
- INACTIVE: i <= 0;                                     // Keep the memory address pointer at 0
+ INACTIVE: i <= 0;                        // Keep the memory address pointer at 0
  WRITE:
  begin
-  DATA[i] <= data_in;                                  // Writing into RWM
+  DATA[i] <= data_in;                     // Writing into RWM
   i <= (i == N*M - 1) ? 0 : i + 1;
  end
  READ:
- begin                                                // Reading from RWM
+ begin                                    // Reading from RWM
   i <= (i == N*M-1) ? 0 : i + 1;
  end
- WAIT: i <= i;                                        // Preserve the address location
+ WAIT: i <= i;                            // Preserve the address location
  CLEANUP:
  begin
-  /*
-  DATA[i] <= 8'h00;                                  // Clearing RWM registers
-  i <= (i == N*M) ? 0 : i + 1;
-  */
   for(j = 0; j < N*M; j = j+1)
   begin
-   DATA[j] <= 8'h00;
+   DATA[j] <= 8'h00;                      // Clearing RWM registers
   end
  end
  endcase

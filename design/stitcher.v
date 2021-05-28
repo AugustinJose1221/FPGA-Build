@@ -100,7 +100,6 @@ begin
          o = (q == (((3*M)-col2)+col1)-1) ? o + 1 : o;
          q = (q == (((3*M)-col2)+col1)-1) ? 0 : q + 1;
          NS = DISPLAY;
-         // NS = (o == N+1 && q == 0) ? DISPLAY : BLEND;
         end
  DISPLAY: begin
            out = IMAGE[k];

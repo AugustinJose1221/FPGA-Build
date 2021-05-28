@@ -1,10 +1,10 @@
 module top(
-input clk,
-input rst_n,
-input l_start,
-input r_start,
-input l_clear,
-input r_clear);
+input     clk,
+input     rst_n,
+input     l_start,
+input     r_start,
+input     l_clear,
+input     r_clear);
 
 wire l_camera_enable, r_camera_enable;
 wire l_data_valid, r_data_valid;

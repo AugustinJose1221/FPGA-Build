@@ -1,9 +1,9 @@
 module image_tb();
 
-reg clk;
-reg camera_en;
-wire data_valid;
-wire [7:0] data_out;
+reg           clk;
+reg           camera_en;
+wire          data_valid;
+wire [7:0]    data_out;
 
 image UUT(clk, camera_en, data_valid, data_out);
 

@@ -1,8 +1,8 @@
 module interface();
-reg clk;
-reg camera_en;
-wire data_valid;
-wire [7:0] data_out;
+reg         clk;
+reg         camera_en;
+wire        data_valid;
+wire [7:0]  data_out;
 
 parameter N = 64, M = 64;
 
