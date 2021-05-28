@@ -60,7 +60,7 @@
 
 The designed architecture generates a video having a wider feild of view by stitching two video input based on features and keypoints. In simple terms, the output generated will be a panorama but with video. The architecture is optimized such that the output can be produced in real-time. The figure below illustrates the block diagram of the system depicting each step of the algorithm.
  
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+![Block Diagram](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/img/System%20Design.jpg)
 
 There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
