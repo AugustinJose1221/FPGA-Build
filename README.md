@@ -33,6 +33,10 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
+       <ul>
+        <li><a href="#algorithm">Algorithm</a></li>
+        <li><a href="#top-level-design">Top Level Design</a></li>
+      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -53,8 +57,10 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+The designed architecture generates a video having a wider feild of view by stitching two video input based on features and keypoints. In simple terms, the output generated will be a panorama but with video. The architecture is optimized such that the output can be produced in real-time.
 
-The designed architecture generates a video having a wider feild of view by stitching two video input based on features and keypoints. In simple terms, the output generated will be a panorama but with video. The architecture is optimized such that the output can be produced in real-time. The figure below illustrates the block diagram of the system depicting each step of the algorithm.
+### Algorithm
+The figure below illustrates the block diagram of the system depicting each step of the algorithm.
  
 ![Block Diagram](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/img/System%20Design.jpg)
 
@@ -123,7 +129,21 @@ Frame stitching is the process of combining two frames into a single image. Fram
   <img src = "https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/STITCH1.jpg"> <br>
   Stitched image
   </p>
-
+### Top Level Design
+The block schematic of the architecture from top level is shown in figure below.
+<p align = "center">
+  <img src = "https://github.com/AugustinJose1221/FPGA-Build/blob/beta/img/Diagram0.png"> <br>
+  Block Schematic
+</p>
+  
+ The top level design is divided into five stages: 
+ * Preprocessing stage
+ * Filter stage
+ * Keypoint stage
+ * Keypoint matching stage
+ * Frame blending stage
+ 
+ 
 <!-- GETTING STARTED -->
 ## Getting Started
 ### Prerequisites
