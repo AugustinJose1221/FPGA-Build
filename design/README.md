@@ -10,6 +10,6 @@
  ### Preprocessing Stage
  A detailed veiw of this stage of operation is shown in figure:
  <p align = "center">
-  <img src = "https://github.com/AugustinJose1221/FPGA-Build/blob/beta/img/Diagram0.png"> <br>
+  <img src = "https://github.com/AugustinJose1221/FPGA-Build/blob/beta/img/Diagram2.png"> <br>
   Block Schematic
 </p>
