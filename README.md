@@ -137,11 +137,11 @@ The block schematic of the architecture from top level is shown in figure below.
 </p>
   
  The top level design is divided into five stages: 
- * Preprocessing stage
- * Filter stage
- * Keypoint stage
- * Keypoint matching stage
- * Frame blending stage
+ * [Preprocessing stage](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/design/README.md#preprocessing-stage)
+ * [Filter stage](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/design/README.md#filter-stage)
+ * [Keypoint stage](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/design/README.md#keypoint-stage)
+ * [Keypoint matching stage](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/design/README.md#keypoint-matching-stage)
+ * [Frame blending stage](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/design/README.md#frame-blending-stage)
  
  
 <!-- GETTING STARTED -->
