@@ -11,7 +11,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/AugustinJose1221/FPGA-Build">
-    <img src="img/logo.png" alt="Logo" width="80" height="80">
+    <img src="img/logo.png" alt="Logo" width="209" height="100">
   </a>
 
   <h3 align="center">FPGA Architecture for Real-time Video Stitching</h3>
