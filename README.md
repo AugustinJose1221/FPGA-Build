@@ -297,8 +297,7 @@ See the [open issues](https://github.com/AugustinJose1221/FPGA-Build/issues) for
 
 <!-- CONTRIBUTING -->
 ## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -318,9 +317,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@augustinjose121](https://twitter.com/augustinjose121) - augustinjose1221@gmail..com
+[@augustinjose121](https://twitter.com/augustinjose121) - augustinjose1221@gmail..com
 
-Project Link: [https://github.com/AugustinJose1221/FPGA-Build](https://github.com/AugustinJose1221/FPGA-Build)
+[https://github.com/AugustinJose1221/FPGA-Build](https://github.com/AugustinJose1221/FPGA-Build)
 
 
 
