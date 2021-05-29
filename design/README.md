@@ -14,6 +14,8 @@
   Preprocessing stage
 </p>
 
+To emulate the working of camera sensors, [image.v](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/design/image.v) and [image2.v](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/design/image.v) are used, which inputs images corresponding to left and right camera sensor respectively. [RWM_1.v](https://github.com/AugustinJose1221/FPGA-Build/blob/beta/design/RWM_1.v) is a read-write memory that stores the 8 bit RGB image. When it is WRITE mode, the RGB image pixel data is written into the memory. After all the pixel values are stored, the memory is put in READ mode. In READ mode, each pixel value is read sequentially from the memory. 
+
 ### Filter Stage
  A detailed veiw of this stage of operation is shown in figure:
  <p align = "center">
