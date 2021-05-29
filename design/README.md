@@ -1,7 +1,15 @@
-# Modules and Description
+# Top Level Design
 
-+ Camera.v      : To emulate an actual camera hardware
-+ RWM_1.v       : A simple read/write memory to store the color pixel data from the camera
-+ Grayscaler.v  : Converts the colour pixels in RGB format to 8 bit grayscale
-+ RWM_2.v       : A simple read/write memory to store the grayscale pixel data from the camera
-+ Controller.v  : A FSM controller to control the working of each individual modules  
+ The top level design is divided into five stages: 
+ * Preprocessing stage
+ * Filter stage
+ * Keypoint stage
+ * Keypoint matching stage
+ * Frame blending stage
+ 
+ ### Preprocessing Stage
+ A detailed veiw of this stage of operation is shown in figure:
+ <p align = "center">
+  <img src = "https://github.com/AugustinJose1221/FPGA-Build/blob/beta/img/Diagram0.png"> <br>
+  Block Schematic
+</p>
