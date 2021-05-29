@@ -11,5 +11,5 @@
  A detailed veiw of this stage of operation is shown in figure:
  <p align = "center">
   <img src = "https://github.com/AugustinJose1221/FPGA-Build/blob/beta/img/Diagram1.png"> <br>
-  Block Schematic
+  Preprocessing stage
 </p>
