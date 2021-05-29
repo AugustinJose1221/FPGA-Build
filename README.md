@@ -97,7 +97,8 @@ Feature extraction from the grayscale images is done using SIFT  algorithm.  SIF
   <img src = "https://github.com/AugustinJose1221/FPGA-Build/blob/beta/res/KEYPOINTS4.jpg"> <br>
   Keypoints
   </p>
-* Descriptor Generation
+  
+  * Descriptor Generation
 
   Keypoint descriptor is a unique identifier  for  a  particular  keypoint.  SIFT  uses  gradient  magnitude  and  direction  of  the  keypoint  as  the  basis  for  the descriptor.  Gradient  magnitude  and  direction  at  a  point  can be calculated by discrete convolution of the image with Sobel filters. 
   <p align = "center">
@@ -146,7 +147,7 @@ The following packages needs to be installed on the Linux system before executin
   pip3 install numpy
   ```
   
-* pillow
+* PIL (Python Image Library)
   ```sh
   pip3 install pillow
   ```
