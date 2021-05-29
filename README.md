@@ -317,9 +317,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-[@augustinjose121](https://twitter.com/augustinjose121)
-[augustinjose1221@gmail..com](https://mail.google.com/mail/?view=cm&fs=1&to=augustinjose1221@gmail.com)
-[https://github.com/AugustinJose1221/FPGA-Build](https://github.com/AugustinJose1221/FPGA-Build)
+[@augustinjose121](https://twitter.com/augustinjose121) <br>
+[augustinjose1221@gmail..com](https://mail.google.com/mail/?view=cm&fs=1&to=augustinjose1221@gmail.com) <br>
+[https://github.com/AugustinJose1221/FPGA-Build](https://github.com/AugustinJose1221/FPGA-Build) <br>
 
 
 
