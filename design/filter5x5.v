@@ -33,7 +33,7 @@ parameter N = 450, M = 450;
 //parameter N = 480, M = 320;
 
 //sequential logic
-always @(posedge clk or posedge rst)
+always @(posedge clk or negedge rst)
 begin
  if (~rst)
   PS <= IDLE;
@@ -196,7 +196,7 @@ end
 
 
 assign fill_now = (PS==CONVOLUTE) ? 1'b1 : 1'b0;
-assign Diff1 = (PS==CONVOLUTE) ? result2-result1 : 16'hzzzz; 
+assign Diff1 = (PS==CONVOLUTE) ? result2-result1 : 16'hzzzz;
 assign Diff2 = (PS==CONVOLUTE) ? result3-result2 : 16'hzzzz;
 assign Diff3 = (PS==CONVOLUTE) ? result4-result3 : 16'hzzzz;
 assign done = (count == N*M) ? 1'b1 : 1'b0;
