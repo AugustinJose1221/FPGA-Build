@@ -19,7 +19,7 @@
   <p align="center">
     A novel architectural design for stitching video streams in real-time on an FPGA.
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/AugustinJose1221/FPGA-Build"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
